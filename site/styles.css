@@ -187,3 +187,27 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .referenceHero .vehicleCollage img{display:block;width:100%;height:auto;object-fit:contain;}
 @media(max-width:1000px){.referenceHero .referenceVisual{min-height:360px;}}
 @media(max-width:800px){.referenceHero .referenceVisual{min-height:auto;padding:20px 0 35px;}.referenceHero .vehicleCollage{width:96%;max-width:680px;}}
+
+
+/* HERO FINAL LAYOUT — keep the supplied vehicle collage crisp and readable */
+.referenceHero{background:#071a33 !important;}
+.referenceHero .referenceBg{
+  background:
+    linear-gradient(90deg,rgba(2,14,31,.99) 0%,rgba(4,28,55,.96) 46%,rgba(6,48,82,.78) 78%,rgba(7,26,51,.70) 100%),
+    linear-gradient(135deg,#071a33 0%,#0b5d98 100%) !important;
+}
+.referenceHero:after{
+  background:linear-gradient(0deg,rgba(4,21,39,.42),rgba(4,21,39,0) 65%) !important;
+}
+.referenceHero .referenceCopy{text-shadow:0 2px 12px rgba(0,0,0,.35);}
+.referenceHero .vehicleCollage{
+  width:min(100%,600px) !important;
+  max-width:600px !important;
+  margin:0 auto !important;
+  box-shadow:0 22px 55px rgba(0,0,0,.34) !important;
+}
+.referenceHero .vehicleCollage img{width:100% !important;height:auto !important;image-rendering:auto;}
+.capPanel .panelText h2{color:#08284b !important;text-shadow:0 1px 5px rgba(255,255,255,.55);}
+.capPanel .panelText p{color:#29445a !important;}
+.capPanel .panelText h2 em{color:#0879d5 !important;}
+@media(max-width:1000px){.referenceHero .vehicleCollage{max-width:600px !important;}}
