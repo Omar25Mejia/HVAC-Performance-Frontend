@@ -149,19 +149,3 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 
 /* Remove the oversized hero logo image; use the exact logo only in the header. */
 .referenceLogo{display:none !important;}
-
-/* EXACT HOME REFERENCE IMAGE — supplied by client */
-.referenceHero{
-  min-height:508px !important;
-  height:508px !important;
-  background-image:url("home-hero-reference.jpg?v=20260930-7") !important;
-  background-size:cover !important;
-  background-position:center !important;
-  background-repeat:no-repeat !important;
-}
-.referenceHero .referenceBg,
-.referenceHero .referenceCopy,
-.referenceHero .referenceVisual{display:none !important;}
-@media (max-width:900px){
-  .referenceHero{height:auto !important;min-height:0 !important;aspect-ratio:1536/508 !important;background-size:cover !important;}
-}
