@@ -17,3 +17,34 @@ document.addEventListener("DOMContentLoaded",()=>{
    form.reset();
  });
 });
+
+async function loadPublicSiteData(){
+  if(!hwaDb)return;
+  try{
+    const [{data:contentRows},{data:serviceRows},{data:settings}]=await Promise.all([
+      hwaDb.from("site_content").select("*"),
+      hwaDb.from("services").select("*").eq("active",true).order("sort_order"),
+      hwaDb.from("site_settings").select("*").eq("id",true).single()
+    ]);
+    const lang=document.documentElement.lang==="es"?"es":"en";
+    const get=(key)=>contentRows?.find(x=>x.content_key===key)?.["value_"+lang];
+    const hero=get("hero_title"),desc=get("hero_description");
+    if(hero){
+      const parts=hero.trim().split(/\s+/);
+      const first=document.querySelector(".referenceCopy h1 span");
+      const rest=document.querySelector(".referenceCopy h1 strong");
+      if(first&&rest){first.textContent=parts.shift();rest.textContent=parts.join(" ");}
+    }
+    if(desc){const el=document.querySelector(".referenceCopy>p");if(el)el.textContent=desc;}
+    if(settings){
+      document.querySelectorAll('a[href^="tel:"]').forEach(a=>{if(settings.phone){a.href="tel:"+settings.phone.replace(/[^0-9+]/g,"");a.querySelector("b")&&(a.querySelector("b").textContent=settings.phone);}});
+    }
+    if(serviceRows?.length){
+      const cards=document.querySelectorAll(".detailCard");
+      cards.forEach((card,i)=>{const s=serviceRows[i];if(!s)return;const h=card.querySelector("h3"),p=card.querySelector("p");if(h)h.textContent=s["name_"+lang];if(p)p.textContent=s["description_"+lang]||"";const icon=card.querySelector(".serviceIcon");if(icon)icon.textContent=s.icon||"✦";});
+      const homeCards=document.querySelectorAll(".refServiceGrid>div");
+      homeCards.forEach((card,i)=>{const s=serviceRows[i];if(!s)return;const b=card.querySelector("b"),sm=card.querySelector("small"),sp=card.querySelector("span");if(b)b.textContent=s["name_"+lang];if(sm)sm.textContent=s["description_"+lang]||"";if(sp)sp.textContent=s.icon||"✓";});
+    }
+  }catch(e){console.warn("HVAC content backend unavailable",e)}
+}
+document.addEventListener("DOMContentLoaded",()=>setTimeout(loadPublicSiteData,50));
