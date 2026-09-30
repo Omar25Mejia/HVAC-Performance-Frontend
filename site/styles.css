@@ -149,3 +149,16 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 
 /* Remove the oversized hero logo image; use the exact logo only in the header. */
 .referenceLogo{display:none !important;}
+
+/* HOMEPAGE POLISH — remove temporary vehicle collage until the client's final fleet image is supplied */
+.heroFleet{display:none !important;}
+.referenceVisual{background:
+  radial-gradient(circle at 78% 30%,rgba(105,226,255,.22),transparent 34%),
+  linear-gradient(135deg,rgba(5,35,64,.05),rgba(160,221,242,.22));
+}
+.languageSwitch{white-space:nowrap;}
+.languageSwitch .langBtn{font-size:12px;min-width:112px;text-align:center;}
+@media(max-width:800px){
+  .languageSwitch{background:#f1f5f8;padding:2px 4px;}
+  .languageSwitch .langBtn{min-width:104px;padding:7px 6px;}
+}
