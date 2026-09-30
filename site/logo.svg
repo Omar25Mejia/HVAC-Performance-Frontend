@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#092735"/><circle cx="50" cy="50" r="38" fill="none" stroke="#5bd4f7" stroke-width="3"/><path d="M30 62V38h7v9h26v-9h7v24h-7v-9H37v9z" fill="#fff"/><text x="50" y="77" text-anchor="middle" font-family="Arial" font-size="9" font-weight="700" fill="#5bd4f7">W&amp;A</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+<title id="title">HVAC Performance by W&amp;A</title><desc id="desc">House, snowflake, airflow and wrench emblem.</desc>
+<defs>
+ <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071a33"/><stop offset="1" stop-color="#0a3c73"/></linearGradient>
+ <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#16c9f5"/><stop offset="1" stop-color="#58e6ff"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<path d="M28 103 120 30l92 73" fill="none" stroke="url(#navy)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M52 99v82h136V99" fill="url(#navy)" stroke="#fff" stroke-width="7" stroke-linejoin="round"/>
+<g filter="url(#glow)">
+ <path d="M120 61v76M82 99h76M93 72l54 54M147 72l-54 54" stroke="url(#cyan)" stroke-width="9" stroke-linecap="round"/>
+ <path d="M151 89c21-10 39-8 56 3-17 4-29 11-40 21 18-3 34 0 48 9-19 6-35 14-47 25" fill="none" stroke="url(#cyan)" stroke-width="9" stroke-linecap="round"/>
+</g>
+<path d="M113 129 87 158l16 14 30-28-8-10z" fill="#fff"/>
+<path d="M128 145 146 77c3-11 13-18 24-17l14 2-13 13 4 15 14 4-7 14c-5 10-16 15-27 12l-15 41z" fill="url(#navy)" stroke="#fff" stroke-width="7" stroke-linejoin="round"/>
+<circle cx="120" cy="190" r="27" fill="#071a33" stroke="url(#cyan)" stroke-width="7"/>
+<path d="M120 174v32M104 190h32M109 179l22 22M131 179l-22 22" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+<text x="120" y="231" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="800" letter-spacing="2" fill="#fff">W&amp;A</text>
+</svg>
