@@ -1,3 +1,8 @@
+// Remove external tracking parameters so the admin URL stays clean.
+if (window.location.search) {
+  const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
+  window.history.replaceState({}, document.title, cleanUrl);
+}
 const SUPABASE_URL="https://jwswzoylhgfyovjwtnyy.supabase.co";const SUPABASE_KEY="sb_publishable_dq-o7sOMO2OMOsLGLdOOIw_TSCt0TLI";const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=s=>document.querySelector(s);let quotes=[],services=[],content=[],settings=null;
 async function init(){const {data:{session}}=await db.auth.getSession();if(session){await showApp(session)}else showLogin();db.auth.onAuthStateChange(async(_e,s)=>{if(s)await showApp(s);else showLogin()})}
