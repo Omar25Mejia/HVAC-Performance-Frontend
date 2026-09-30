@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HVAC Performance | Admin</title><link rel="stylesheet" href="admin.css?v=20260930-1">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
+<body>
+<div id="loginView" class="authWrap"><div class="authCard"><img src="../hvac-logo-tight.jpg?v=20260930-6" alt="HVAC Performance"><h1>Admin Panel</h1><p>Sign in to manage the website and quote requests.</p>
+<form id="loginForm"><input id="email" type="email" placeholder="Email" required><input id="password" type="password" placeholder="Password" required><button>Sign In</button><div id="loginError"></div></form>
+<p class="setup">First administrator? <button id="showSignup" type="button">Create admin account</button></p>
+<form id="signupForm" class="hidden"><input id="signupName" placeholder="Full name" required><input id="signupEmail" type="email" placeholder="Email" required><input id="signupPassword" type="password" minlength="8" placeholder="Password (8+ characters)" required><button>Create Admin</button><div id="signupError"></div></form>
+</div></div>
+<div id="appView" class="hidden"><aside><img src="../hvac-logo-tight.jpg?v=20260930-6" alt=""><nav><button data-view="dashboard" class="active">📊 Dashboard</button><button data-view="quotes">📋 Quote Requests</button><button data-view="services">🛠 Services</button><button data-view="content">✏️ Website Content</button><button data-view="gallery">🖼 Gallery</button><button data-view="settings">⚙️ Settings</button></nav><button id="logout" class="logout">Sign out</button></aside>
+<main><header><div><span class="eyebrow">HVAC PERFORMANCE</span><h1 id="viewTitle">Dashboard</h1></div><span id="adminEmail"></span></header>
+<section id="dashboardView" class="view"><div class="stats"><div><span>Total Requests</span><strong id="statTotal">0</strong></div><div><span>Pending</span><strong id="statPending">0</strong></div><div><span>Contacted</span><strong id="statContacted">0</strong></div><div><span>Closed</span><strong id="statClosed">0</strong></div></div><div class="panel"><div class="panelHead"><h2>Recent quote requests</h2><button class="ghost" data-view="quotes">View all</button></div><div id="recentQuotes"></div></div></section>
+<section id="quotesView" class="view hidden"><div class="panel"><div class="panelHead"><h2>Quote Requests</h2><button class="ghost" id="refreshQuotes">Refresh</button></div><div class="tableWrap"><table><thead><tr><th>Date</th><th>Client</th><th>Service</th><th>Phone</th><th>Status</th><th></th></tr></thead><tbody id="quotesTable"></tbody></table></div></div></section>
+<section id="servicesView" class="view hidden"><div class="panel"><div class="panelHead"><h2>Services</h2><button class="primary" id="addService">Add service</button></div><div id="servicesList"></div></div></section>
+<section id="contentView" class="view hidden"><div class="panel"><div class="panelHead"><h2>Website Content</h2><button class="primary" id="saveContent">Save changes</button></div><div id="contentForm" class="formGrid"></div></div></section>
+<section id="galleryView" class="view hidden"><div class="panel"><div class="panelHead"><h2>Gallery</h2><label class="uploadBtn">Upload image<input id="galleryUpload" type="file" accept="image/*" hidden></label></div><div id="galleryList" class="gallery"></div></div></section>
+<section id="settingsView" class="view hidden"><div class="panel"><div class="panelHead"><h2>Business Settings</h2><button class="primary" id="saveSettings">Save changes</button></div><div id="settingsForm" class="formGrid"></div></div></section>
+</main></div>
+<div id="modal" class="modal hidden"><div class="modalCard"><button class="close" id="closeModal">×</button><div id="modalBody"></div></div></div>
+<script src="admin.js?v=20260930-1"></script></body></html>
