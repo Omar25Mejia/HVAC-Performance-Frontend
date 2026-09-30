@@ -50,3 +50,98 @@ body{overflow-x:hidden}.topbar{box-shadow:0 1px 0 rgba(255,255,255,.08)}.brand i
 @media(max-width:1000px){.homeHero .heroGrid{grid-template-columns:1fr}.homeHero .heroVisual{min-height:500px}.heroBrandPanel{position:relative;margin:0 auto}.fleetHero{right:0}.stripGrid{grid-template-columns:repeat(3,1fr)}.fleetGrid,.showcaseGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.brand img{width:54px;height:54px}.homeHero{padding:50px 0}.homeHero h1{font-size:47px}.heroBrandPanel{width:92%}.homeHero .heroVisual{min-height:440px}.fleetVehicle.v1{width:64%;height:205px;right:24%}.fleetVehicle.v2{width:55%;height:185px;right:0}.fleetVehicle.v3{display:none}.stripGrid{grid-template-columns:1fr 1fr}.showcaseGrid,.fleetGrid{grid-template-columns:1fr}}
 @media(max-width:520px){.homeHero .heroVisual{min-height:380px}.heroBrandPanel{padding:15px}.fleetHero{height:260px}.fleetVehicle.v1{width:72%;height:170px;right:20%}.fleetVehicle.v2{width:58%;height:145px;right:-2%;bottom:4px}.stripGrid{grid-template-columns:1fr 1fr}.brandLarge,.capMock{min-height:250px}.capMock strong{margin-top:175px}}
+
+/* APPROVED HOMEPAGE REFERENCE — rebuilt to match the supplied mockup */
+.topbar{background:#fff;color:#10243d;border-bottom:1px solid #e8edf2;box-shadow:0 2px 12px rgba(12,43,74,.06)}
+.nav{height:74px}
+.brand img{width:220px;height:auto;display:block}
+.nav nav{gap:29px;color:#14263e;font-weight:600}
+.nav nav a:hover,.nav nav a.active{color:#0879d5}
+.nav nav a.active{position:relative}
+.nav nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:-25px;height:3px;background:#0879d5;border-radius:3px}
+.navCta{background:#0879d5;color:#fff;padding:11px 17px;border-radius:7px}
+.languageSwitch{display:flex;align-items:center;gap:8px;border-radius:20px;background:#edf1f5;padding:3px 8px 3px 4px;font-size:13px}
+.languageSwitch button{border:0;background:transparent;color:#24364c;font-weight:700;cursor:pointer;padding:7px 9px;border-radius:16px}
+.languageSwitch .langActive{background:#0879d5;color:#fff}
+.languageSwitch>span{font-size:15px}
+.referenceHero{position:relative;min-height:520px;overflow:hidden;color:#fff;background:#08284b}
+.referenceBg{position:absolute;inset:0;background:
+linear-gradient(90deg,rgba(2,14,31,.98) 0%,rgba(3,29,58,.91) 43%,rgba(3,63,108,.52) 70%,rgba(217,239,248,.45) 100%),
+linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
+}
+.referenceHero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 28%,rgba(255,255,255,.48),transparent 30%),linear-gradient(0deg,rgba(4,21,39,.65),transparent 52%);pointer-events:none}
+.referenceHeroInner{position:relative;z-index:2;min-height:520px;display:grid;grid-template-columns:43% 57%;align-items:stretch}
+.referenceCopy{padding:58px 10px 25px 0;position:relative;z-index:5}
+.refEyebrow{color:#12bce9;font-size:13px;font-weight:800;letter-spacing:2px;display:flex;align-items:center;gap:13px}
+.refEyebrow:after{content:"";width:50px;height:2px;background:#12bce9}
+.referenceCopy h1{font-size:clamp(48px,5.1vw,72px);line-height:.96;margin:20px 0 18px;letter-spacing:-2px}
+.referenceCopy h1 span{display:block;color:#fff}
+.referenceCopy h1 strong{display:block;color:#11b7ed;font-size:.88em}
+.referenceCopy p{font-size:17px;line-height:1.55;color:#e0e8ee;max-width:540px;margin:0 0 25px}
+.referenceActions{display:flex;gap:12px}
+.refBtn{display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:8px;font-weight:800;font-size:14px;min-height:46px}
+.refBtn.primary{background:#087ff1;color:#fff;box-shadow:0 9px 25px rgba(0,111,220,.28)}
+.refBtn.outline{border:1px solid #fff;color:#fff;background:rgba(4,24,45,.18)}
+.refBtn.outline:hover{background:#fff;color:#08284b}
+.trustIcons{display:flex;gap:38px;margin-top:35px}
+.trustIcons>div{min-width:90px}
+.trustIcons i{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#0879d5;border:1px solid rgba(255,255,255,.35);font-style:normal;font-size:16px;margin-bottom:7px}
+.trustIcons b,.trustIcons small{display:block}
+.trustIcons b{font-size:12px}
+.trustIcons small{font-size:10px;color:#d2dce3;margin-top:4px}
+.referenceVisual{position:relative;min-height:520px}
+.referenceLogo{position:absolute;right:-2%;top:32px;width:min(650px,100%);padding:15px 18px;background:rgba(255,255,255,.93);border-radius:7px;box-shadow:0 18px 45px rgba(0,0,0,.13);z-index:4}
+.referenceLogo img{width:100%;display:block}
+.heroFleet{position:absolute;left:-7%;right:-7%;bottom:-2px;height:270px;z-index:5}
+.heroTruck{position:absolute;bottom:0;overflow:hidden;border-radius:7px;filter:drop-shadow(0 14px 15px rgba(0,0,0,.3));}
+.heroTruck img{width:100%;height:100%;object-fit:cover;display:block}
+.heroTruck span{position:absolute;left:14px;bottom:14px;background:rgba(7,29,54,.82);padding:6px 8px;border-radius:4px;font-size:8px;font-weight:900;letter-spacing:1px}
+.heroTruck.pickup{width:46%;height:210px;left:4%;z-index:4}
+.heroTruck.pickup2{width:31%;height:175px;left:35%;z-index:3;bottom:5px}
+.heroTruck.van{width:29%;height:145px;right:18%;z-index:2;bottom:6px}
+.heroTruck.box{width:34%;height:185px;right:-2%;z-index:1}
+.referenceServices{background:#fff;box-shadow:0 5px 18px rgba(7,29,54,.08);position:relative;z-index:8}
+.refServiceGrid{display:grid;grid-template-columns:repeat(6,1fr);min-height:145px}
+.refServiceGrid>div{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 14px;border-right:1px solid #dfe6ec}
+.refServiceGrid>div:last-child{border-right:0}
+.refServiceGrid span{font-size:31px;color:#0879d5;line-height:1;margin-bottom:10px}
+.refServiceGrid b{font-size:14px;color:#14263e}
+.refServiceGrid small{font-size:11px;color:#617386;line-height:1.35;margin-top:7px;max-width:150px}
+.brandPanels{display:grid;grid-template-columns:1fr 1fr}
+.brandPanel{min-height:390px;position:relative;overflow:hidden}
+.capPanel{background:linear-gradient(125deg,#e9f1f5,#cfdce4 58%,#92a6b4);padding:35px}
+.roadPanel{background:linear-gradient(120deg,#061a33,#0a3a68);color:#fff;padding:42px 38px}
+.panelText{position:absolute;left:35px;bottom:28px;z-index:5}
+.panelText h2{font-size:28px;line-height:1.02;margin:0 0 7px;color:#fff}
+.panelText h2 em{color:#11b7ed;font-style:normal}
+.panelText p{margin:0 0 16px;color:#d8e3ea;font-size:13px;max-width:350px;line-height:1.45}
+.capCluster{position:absolute;inset:0}
+.cap{position:absolute;background:linear-gradient(145deg,#fff,#d7e1e7);width:250px;height:150px;border-radius:55% 55% 18% 18%;box-shadow:0 22px 28px rgba(25,48,64,.2)}
+.cap:after{content:"";position:absolute;width:125px;height:38px;background:#e7eef2;left:60px;bottom:-18px;border-radius:70% 15% 65% 10%;transform:rotate(5deg)}
+.cap1{left:8%;top:45px;transform:rotate(-12deg);opacity:.72}
+.cap2{left:25%;top:25px;transform:rotate(8deg);opacity:.84}
+.cap3{left:39%;top:50px;transform:rotate(-3deg);z-index:3}
+.cap3 img{position:absolute;width:180px;height:auto;left:34px;top:37px}
+.roadPanel:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,14,30,.72),rgba(2,14,30,.12) 65%);z-index:2}
+.roadShade{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,25,48,.82),transparent 65%);z-index:2}
+.roadTruck{position:absolute;right:-5%;bottom:-15px;width:72%;height:78%;object-fit:cover;z-index:1;filter:brightness(.9)}
+.roadPanel .panelText{left:38px;bottom:42px;max-width:330px}
+.homeCta{padding:70px 0;text-align:center;background:#f4f9fc}
+.homeCta h2{font-size:42px;margin:0 0 12px;color:#0b2440}
+.homeCta p{color:#627589;margin:0 0 22px}
+.footerLogo{width:250px;height:auto;display:block}
+.copyright span{color:#8fa5ae}
+@media(max-width:1000px){
+ .nav nav{gap:15px;font-size:12px}.brand img{width:185px}
+ .referenceHeroInner{grid-template-columns:1fr}.referenceCopy{padding-right:0}.referenceVisual{min-height:390px}.referenceLogo{width:58%;right:4%;top:5px}.heroFleet{left:5%;right:0;height:225px}.heroTruck.pickup{width:46%;height:175px}.heroTruck.pickup2{width:31%;height:145px}.heroTruck.van{width:27%;height:125px}.heroTruck.box{width:31%;height:155px}
+ .refServiceGrid{grid-template-columns:repeat(3,1fr)}.refServiceGrid>div:nth-child(3){border-right:0}.refServiceGrid>div:nth-child(n+4){border-top:1px solid #dfe6ec}
+}
+@media(max-width:800px){
+ .nav{height:68px}.brand img{width:170px}.nav nav{display:none}.menuBtn{display:block;color:#10243d}.nav nav.open{display:flex;top:68px;background:#fff;color:#10243d;padding:18px;border-bottom:1px solid #e8edf2}.nav nav a.active:after{display:none}.languageSwitch{align-self:flex-start}
+ .referenceHeroInner{min-height:auto}.referenceCopy{padding:42px 0 15px}.referenceCopy h1{font-size:47px}.referenceVisual{min-height:350px}.referenceLogo{width:72%;right:0}.heroFleet{height:190px;left:-2%;right:-2%}.heroTruck.pickup{width:56%;height:145px;left:2%}.heroTruck.pickup2{width:37%;height:120px;left:37%}.heroTruck.van{width:34%;height:105px;right:17%}.heroTruck.box{width:36%;height:125px;right:-2%}.trustIcons{gap:18px}.trustIcons b{font-size:10px}.trustIcons small{font-size:9px}
+ .refServiceGrid{grid-template-columns:repeat(2,1fr)}.refServiceGrid>div{border-right:1px solid #dfe6ec!important}.refServiceGrid>div:nth-child(2n){border-right:0!important}.refServiceGrid>div:nth-child(n+3){border-top:1px solid #dfe6ec}
+ .brandPanels{grid-template-columns:1fr}.brandPanel{min-height:330px}.capCluster{transform:scale(.8);transform-origin:top left}.roadPanel .panelText{bottom:25px}.roadTruck{width:67%;height:62%}
+}
+@media(max-width:520px){
+ .brand img{width:155px}.referenceCopy h1{font-size:42px;letter-spacing:-1px}.referenceCopy p{font-size:15px}.referenceActions{flex-direction:column;align-items:flex-start}.trustIcons{gap:12px}.trustIcons>div{min-width:0}.referenceVisual{min-height:280px}.referenceLogo{width:78%}.heroFleet{height:150px}.heroTruck.pickup{height:112px}.heroTruck.pickup2{height:94px}.heroTruck.van{height:78px}.heroTruck.box{height:92px}.refServiceGrid{grid-template-columns:1fr 1fr}.refServiceGrid small{font-size:10px}.panelText h2{font-size:23px}.capPanel{padding:20px}.capCluster{transform:scale(.65);transform-origin:top left}.roadPanel{padding:25px}.roadPanel .panelText{left:25px;max-width:245px}.roadTruck{width:80%;right:-12%}.footerLogo{width:210px}
+}
