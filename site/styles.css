@@ -162,3 +162,18 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
   .languageSwitch{background:#f1f5f8;padding:2px 4px;}
   .languageSwitch .langBtn{min-width:104px;padding:7px 6px;}
 }
+
+/* FINAL VEHICLE COLLAGE — centered beside hero copy */
+.referenceVisual{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px;background:none !important;}
+.vehicleCollage{width:100%;max-width:650px;position:relative;z-index:6;border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.2);}
+.vehicleCollage img{display:block;width:100%;height:auto;object-fit:contain;}
+.referenceHeroInner{align-items:center;}
+.heroFleet{display:none !important;}
+@media(max-width:1000px){
+ .referenceVisual{min-height:360px;}
+ .vehicleCollage{max-width:720px;}
+}
+@media(max-width:800px){
+ .referenceVisual{min-height:auto;padding:20px 0 35px;}
+ .vehicleCollage{width:96%;max-width:680px;}
+}
