@@ -145,3 +145,7 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 @media(max-width:520px){
  .brand img{width:155px}.referenceCopy h1{font-size:42px;letter-spacing:-1px}.referenceCopy p{font-size:15px}.referenceActions{flex-direction:column;align-items:flex-start}.trustIcons{gap:12px}.trustIcons>div{min-width:0}.referenceVisual{min-height:280px}.referenceLogo{width:78%}.heroFleet{height:150px}.heroTruck.pickup{height:112px}.heroTruck.pickup2{height:94px}.heroTruck.van{height:78px}.heroTruck.box{height:92px}.refServiceGrid{grid-template-columns:1fr 1fr}.refServiceGrid small{font-size:10px}.panelText h2{font-size:23px}.capPanel{padding:20px}.capCluster{transform:scale(.65);transform-origin:top left}.roadPanel{padding:25px}.roadPanel .panelText{left:25px;max-width:245px}.roadTruck{width:80%;right:-12%}.footerLogo{width:210px}
 }
+
+
+/* Remove the oversized hero logo image; use the exact logo only in the header. */
+.referenceLogo{display:none !important;}
