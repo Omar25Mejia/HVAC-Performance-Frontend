@@ -402,3 +402,14 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .uniformPanel .uniformStatic{display:flex !important;align-items:center !important;justify-content:center !important;gap:0 !important;padding:0 !important;background:#dce9f0 !important;}
 .uniformPanel .uniformStatic img{flex:0 0 50% !important;width:50% !important;height:78% !important;max-width:50% !important;max-height:78% !important;margin:0 !important;object-fit:contain !important;object-position:center center !important;background:transparent !important;}
 @media(max-width:800px){.uniformPanel .uniformStatic img{height:78% !important;max-height:78% !important;}}
+
+/* HOME CTA — clean HVAC closing section */
+.homeCta{position:relative !important;overflow:hidden !important;padding:72px 24px 78px !important;background:linear-gradient(135deg,#f5fbff 0%,#e7f4fb 52%,#d5edf8 100%) !important;text-align:center !important;}
+.homeCta:before{content:"";position:absolute;width:360px;height:360px;right:-130px;top:-180px;border-radius:50%;background:rgba(0,150,220,.13);}
+.homeCta:after{content:"";position:absolute;width:260px;height:260px;left:-130px;bottom:-170px;border-radius:50%;border:1px solid rgba(0,110,180,.12);}
+.homeCta .container{position:relative;z-index:2;max-width:850px !important;margin:auto !important;}
+.homeCta h2{margin:0 0 12px !important;color:#062b4d !important;font-size:42px !important;line-height:1.05 !important;font-weight:800 !important;letter-spacing:-1px !important;}
+.homeCta p{margin:0 auto 25px !important;color:#42627a !important;font-size:16px !important;line-height:1.6 !important;}
+.homeCta .refBtn{display:inline-flex !important;align-items:center !important;justify-content:center !important;padding:13px 22px !important;border-radius:6px !important;background:#087fc2 !important;color:#fff !important;box-shadow:0 8px 22px rgba(8,127,194,.22) !important;font-weight:800 !important;}
+.homeCta .refBtn:hover{background:#05679f !important;transform:translateY(-2px);}
+@media(max-width:800px){.homeCta{padding:55px 20px 60px !important}.homeCta h2{font-size:32px !important}.homeCta p{font-size:14px !important;}}
