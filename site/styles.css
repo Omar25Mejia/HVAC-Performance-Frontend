@@ -346,3 +346,11 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .uniformPanel .panelText h2 em{color:#11b7ed !important;}
 .uniformPanel .panelText p{color:#eef7fb !important;text-shadow:0 2px 4px rgba(0,0,0,.8) !important;}
 @media(max-width:800px){.uniformPanel{height:330px !important;min-height:330px !important}.uniformPanel .panelText{left:25px !important;bottom:25px !important}.uniformPanel .uniformStatic img{object-position:center center !important;}}
+
+
+/* RIGHT PANEL IMAGE — fill the entire panel */
+.roadPanel{position:relative !important;overflow:hidden !important;padding:0 !important;}
+.roadPanel .roadTruck{position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;right:auto !important;bottom:auto !important;object-fit:cover !important;object-position:center center !important;z-index:1 !important;filter:brightness(.88) !important;}
+.roadPanel .roadShade{position:absolute !important;inset:0 !important;z-index:2 !important;}
+.roadPanel:after{z-index:3 !important;}
+.roadPanel .panelText{position:absolute !important;z-index:5 !important;}
