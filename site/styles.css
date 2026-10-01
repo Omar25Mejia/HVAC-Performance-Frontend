@@ -393,3 +393,7 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 /* UNIFORM PANEL — reduce photo zoom and show more of each uniform */
 .uniformPanel .uniformStatic{padding:12px 10px !important;box-sizing:border-box !important;gap:10px !important;background:#dce9f0 !important;}
 .uniformPanel .uniformStatic img{width:100% !important;height:100% !important;object-fit:contain !important;object-position:center center !important;transform:none !important;background:#dce9f0 !important;}
+
+/* UNIFORM PANEL — visibly smaller photos */
+.uniformPanel .uniformStatic{padding:0 !important;gap:0 !important;align-items:center !important;}
+.uniformPanel .uniformStatic img{width:86% !important;height:86% !important;margin:auto !important;object-fit:contain !important;object-position:center center !important;transform:none !important;}
