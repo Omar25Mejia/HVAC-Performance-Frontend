@@ -720,3 +720,18 @@ footer a:hover{color:#fff !important;}
     border-color:#078bea !important;
   }
 }
+
+
+@media(max-width:800px){
+  .topbar nav.open{
+    display:grid !important;
+    width:100% !important;
+    flex:0 0 100% !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+    padding:12px 0 4px !important;
+    background:transparent !important;
+    border-bottom:0 !important;
+    position:static !important;
+  }
+}
