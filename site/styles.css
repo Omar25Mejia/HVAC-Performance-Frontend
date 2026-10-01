@@ -371,3 +371,21 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 
 /* RIGHT PANEL — enlarge the uploaded composition so the photo content fills the panel */
 .roadPanel .roadTruck{width:100% !important;height:100% !important;object-fit:cover !important;object-position:right center !important;transform:scale(1.45) !important;transform-origin:right center !important;}
+
+/* SERVICE FOCUS PANEL — replaces the uniform photo panel */
+.serviceFocusPanel{position:relative !important;height:390px !important;min-height:390px !important;overflow:hidden !important;padding:0 !important;background:linear-gradient(135deg,#03182e 0%,#06345b 58%,#087fc2 100%) !important;color:#fff !important;}
+.serviceFocusGlow{position:absolute;width:310px;height:310px;right:-90px;top:-85px;border-radius:50%;background:rgba(88,230,255,.22);filter:blur(8px);pointer-events:none;}
+.serviceFocusGlow:after{content:"";position:absolute;inset:45px;border:1px solid rgba(255,255,255,.14);border-radius:50%;}
+.serviceFocusContent{position:relative;z-index:2;padding:38px 38px 30px;max-width:520px;}
+.serviceFocusTag{font-size:10px;font-weight:800;letter-spacing:2px;color:#58e6ff;margin-bottom:12px;}
+.serviceFocusContent h2{font-size:38px;line-height:.98;margin:0 0 12px;color:#fff;letter-spacing:-1px;}
+.serviceFocusContent h2 em{font-style:normal;color:#58e6ff;}
+.serviceFocusContent p{font-size:14px;line-height:1.5;color:#d5e7ef;max-width:390px;margin:0 0 20px;}
+.serviceFocusItems{display:flex;gap:10px;margin-bottom:22px;}
+.serviceFocusItems>div{min-width:92px;padding:10px 12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);border-radius:7px;backdrop-filter:blur(5px);}
+.serviceFocusItems span{display:block;font-size:18px;color:#58e6ff;margin-bottom:5px;}
+.serviceFocusItems b{display:block;font-size:11px;color:#fff;}
+.serviceFocusBtn{display:inline-flex;align-items:center;padding:10px 15px;border-radius:6px;background:#fff;color:#062746;font-size:12px;font-weight:800;transition:.2s;}
+.serviceFocusBtn:hover{background:#58e6ff;transform:translateY(-1px);}
+@media(max-width:800px){.serviceFocusPanel{height:330px !important;min-height:330px !important}.serviceFocusContent{padding:28px 25px}.serviceFocusContent h2{font-size:30px}.serviceFocusItems{gap:7px}.serviceFocusItems>div{min-width:80px;padding:8px}.serviceFocusBtn{padding:9px 12px;}}
+@media(max-width:520px){.serviceFocusContent{padding:25px 20px}.serviceFocusContent h2{font-size:27px}.serviceFocusContent p{font-size:12px;max-width:300px}.serviceFocusItems{margin-bottom:16px}.serviceFocusItems>div{min-width:72px}.serviceFocusItems b{font-size:10px;}}
