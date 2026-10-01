@@ -282,3 +282,21 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
   border-color:#0b8fe8 !important;
   color:#fff !important;
 }
+
+
+/* HERO TEXT — cleaner overlay, preserve vehicle visibility */
+.referenceHero .referenceCopy > p{
+  color:#fff !important;
+  background:linear-gradient(90deg,rgba(2,18,35,.82) 0%,rgba(2,18,35,.48) 52%,rgba(2,18,35,0) 100%) !important;
+  border-left:3px solid #12b8ef !important;
+  padding:6px 12px !important;
+  border-radius:0 !important;
+  text-shadow:0 2px 5px rgba(0,0,0,.95) !important;
+  box-shadow:none !important;
+}
+.referenceHero .referenceActions .refBtn.outline{
+  color:#fff !important;
+  background:rgba(3,24,45,.88) !important;
+  border:2px solid rgba(255,255,255,.95) !important;
+  box-shadow:0 4px 14px rgba(0,0,0,.35) !important;
+}
