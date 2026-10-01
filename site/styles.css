@@ -622,3 +622,15 @@ footer a:hover{color:#fff !important;}
   .aboutPageGrid,.contactGrid{gap:30px !important;}
   .aboutPageGrid h2,.contactGrid h2{font-size:36px !important;}
 }
+
+/* SERVICE ICONS — clean numbered markers instead of generic symbols */
+.detailCard .serviceIcon{font-size:0 !important;color:transparent !important;}
+.detailCard:nth-child(1) .serviceIcon:before{content:"01";}
+.detailCard:nth-child(2) .serviceIcon:before{content:"02";}
+.detailCard:nth-child(3) .serviceIcon:before{content:"03";}
+.detailCard:nth-child(4) .serviceIcon:before{content:"04";}
+.detailCard:nth-child(5) .serviceIcon:before{content:"05";}
+.detailCard:nth-child(6) .serviceIcon:before{content:"06";}
+.detailCard .serviceIcon:before{font-size:12px !important;font-weight:950 !important;letter-spacing:1px !important;color:#fff !important;}
+.detailCard .serviceIcon:after{content:"";display:block !important;width:14px;height:2px;background:#12aaf0;margin-left:6px;position:absolute;}
+.detailCard .serviceIcon{position:relative !important;justify-content:flex-start !important;padding-left:11px !important;gap:4px !important;}
