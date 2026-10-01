@@ -211,3 +211,25 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .capPanel .panelText p{color:#29445a !important;}
 .capPanel .panelText h2 em{color:#0879d5 !important;}
 @media(max-width:1000px){.referenceHero .vehicleCollage{max-width:600px !important;}}
+
+
+/* CLIENT HERO BACKGROUND — use the supplied full-width visual as the single hero image */
+.referenceHero{
+  min-height:520px !important;
+  height:520px !important;
+  background-image:url("home-hero-reference.jpg?v=20260930-hero") !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+  background-color:#071a33 !important;
+}
+.referenceHero .referenceBg{
+  background:linear-gradient(90deg,rgba(2,14,31,.92) 0%,rgba(2,18,36,.72) 42%,rgba(2,18,36,.10) 78%,rgba(2,18,36,0) 100%) !important;
+}
+.referenceHero .vehicleCollage{display:none !important;}
+.referenceHero .referenceVisual{display:none !important;}
+.referenceHero .referenceHeroInner{min-height:520px !important;align-items:center !important;}
+@media(max-width:800px){
+  .referenceHero{height:auto !important;min-height:560px !important;background-position:center center !important;}
+  .referenceHero .referenceHeroInner{min-height:560px !important;}
+}
