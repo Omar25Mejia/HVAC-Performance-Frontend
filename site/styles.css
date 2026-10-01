@@ -320,3 +320,17 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .uniformPanel .panelText h2 em{color:#11b7ed !important;}
 .uniformPanel .panelText p{color:#eef7fb !important;text-shadow:0 2px 4px rgba(0,0,0,.7);}
 @media(max-width:800px){.uniformPanel{min-height:330px !important}.uniformPanelImage{object-position:center 42%}.uniformPanel .panelText{left:25px;bottom:25px}.uniformPanel .panelText h2{font-size:23px;}}
+
+
+/* Uniform carousel inside the original brand panel */
+.uniformPanel{position:relative;overflow:hidden;min-height:390px !important;padding:0 !important;background:#dce9f0 !important;}
+.uniformCarousel{position:absolute;inset:0;overflow:hidden;z-index:1;}
+.uniformSlide{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center center;opacity:0;animation:uniformFade 10s infinite;}
+.uniformSlide1{animation-delay:0s}.uniformSlide2{animation-delay:5s}
+.uniformPanel:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,25,45,.82),rgba(3,25,45,.12) 58%,rgba(3,25,45,0) 100%);z-index:2;pointer-events:none;}
+.uniformPanel .panelText{position:absolute;left:35px;bottom:28px;z-index:5;}
+.uniformPanel .panelText h2{color:#fff !important;text-shadow:0 2px 6px rgba(0,0,0,.7);}
+.uniformPanel .panelText h2 em{color:#11b7ed !important;}
+.uniformPanel .panelText p{color:#eef7fb !important;text-shadow:0 2px 4px rgba(0,0,0,.7);}
+@keyframes uniformFade{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+@media(max-width:800px){.uniformPanel{min-height:330px !important}.uniformPanel .panelText{left:25px;bottom:25px}.uniformSlide{object-position:center center}}
