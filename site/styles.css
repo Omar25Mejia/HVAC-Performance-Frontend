@@ -389,3 +389,7 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .serviceFocusBtn:hover{background:#58e6ff;transform:translateY(-1px);}
 @media(max-width:800px){.serviceFocusPanel{height:330px !important;min-height:330px !important}.serviceFocusContent{padding:28px 25px}.serviceFocusContent h2{font-size:30px}.serviceFocusItems{gap:7px}.serviceFocusItems>div{min-width:80px;padding:8px}.serviceFocusBtn{padding:9px 12px;}}
 @media(max-width:520px){.serviceFocusContent{padding:25px 20px}.serviceFocusContent h2{font-size:27px}.serviceFocusContent p{font-size:12px;max-width:300px}.serviceFocusItems{margin-bottom:16px}.serviceFocusItems>div{min-width:72px}.serviceFocusItems b{font-size:10px;}}
+
+/* UNIFORM PANEL — reduce photo zoom and show more of each uniform */
+.uniformPanel .uniformStatic{padding:12px 10px !important;box-sizing:border-box !important;gap:10px !important;background:#dce9f0 !important;}
+.uniformPanel .uniformStatic img{width:100% !important;height:100% !important;object-fit:contain !important;object-position:center center !important;transform:none !important;background:#dce9f0 !important;}
