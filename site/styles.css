@@ -360,3 +360,10 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .uniformPanel .panelText p{color:#eef7fb !important;text-shadow:0 2px 4px rgba(0,0,0,.8) !important;}
 @keyframes uniformPhoto{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
 @media(max-width:800px){.uniformPanel{height:330px !important;min-height:330px !important}.uniformPanel .panelText{left:25px !important;bottom:25px !important}}
+
+
+/* FIX UNIFORM CAROUSEL VISIBILITY 2026-10-01 */
+.uniformStatic img{opacity:1 !important;animation:uniformPhoto 10s infinite !important;}
+.uniformStatic img:first-child{animation-delay:0s !important;}
+.uniformStatic img:last-child{animation-delay:5s !important;}
+@keyframes uniformPhoto{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
