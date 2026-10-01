@@ -233,3 +233,12 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
   .referenceHero{height:auto !important;min-height:560px !important;background-position:center center !important;}
   .referenceHero .referenceHeroInner{min-height:560px !important;}
 }
+
+
+/* HERO BACKGROUND FIX — the image is on the hero itself; the overlay must not cover it */
+.referenceHero .referenceBg{background:transparent !important;}
+.referenceHero:after{z-index:1 !important;}
+.referenceHero .referenceHeroInner{z-index:2 !important;}
+@media(max-width:800px){
+  .referenceHero{background-size:cover !important;background-position:center center !important;}
+}
