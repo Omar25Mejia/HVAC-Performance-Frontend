@@ -242,3 +242,12 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 @media(max-width:800px){
   .referenceHero{background-size:cover !important;background-position:center center !important;}
 }
+
+
+/* FINAL HERO IMAGE RENDER FIX */
+.referenceHero{background:#071a33 !important;position:relative !important;overflow:hidden !important;}
+.referenceHero .heroBackgroundImage{display:block !important;position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;object-fit:cover !important;object-position:center center !important;z-index:0 !important;}
+.referenceHero .referenceBg{display:none !important;}
+.referenceHero:after{z-index:1 !important;opacity:.12 !important;}
+.referenceHero .referenceHeroInner{position:relative !important;z-index:2 !important;}
+@media(max-width:800px){.referenceHero .heroBackgroundImage{object-position:center center !important;}}
