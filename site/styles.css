@@ -336,41 +336,13 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 @media(max-width:800px){.uniformPanel{min-height:330px !important}.uniformPanel .panelText{left:25px;bottom:25px}.uniformSlide{object-position:center center}}
 
 
-/* FINAL UNIFORM PANEL FIX: two photos, same original panel size */
-.uniformPanel{position:relative !important;min-height:390px !important;height:390px !important;overflow:hidden !important;padding:0 !important;background:#dce9f0 !important;}
-.uniformStatic{position:absolute !important;inset:0 !important;display:grid !important;grid-template-columns:1fr 1fr !important;gap:0 !important;z-index:1 !important;}
-.uniformStatic img{display:block !important;width:100% !important;height:100% !important;min-width:0 !important;min-height:0 !important;object-fit:cover !important;object-position:center center !important;}
-.uniformPanel:after{content:"" !important;position:absolute !important;inset:0 !important;background:linear-gradient(0deg,rgba(3,25,45,.82),rgba(3,25,45,.10) 60%,rgba(3,25,45,0) 100%) !important;z-index:2 !important;pointer-events:none !important;}
-.uniformPanel .panelText{position:absolute !important;left:35px !important;bottom:28px !important;z-index:5 !important;max-width:420px !important;}
-.uniformPanel .panelText h2{color:#fff !important;text-shadow:0 2px 6px rgba(0,0,0,.75) !important;}
-.uniformPanel .panelText h2 em{color:#11b7ed !important;}
-.uniformPanel .panelText p{color:#eef7fb !important;text-shadow:0 2px 4px rgba(0,0,0,.75) !important;}
-@media(max-width:800px){.uniformPanel{height:330px !important;min-height:330px !important}.uniformPanel .panelText{left:25px !important;bottom:25px !important}.uniformStatic img{object-position:center center !important}}
-
-
-/* Uniform panel: one photo at a time, contained in the original panel */
+/* UNIFORM PANEL — clean final version */
 .uniformPanel{position:relative !important;height:390px !important;min-height:390px !important;overflow:hidden !important;padding:0 !important;background:#dce9f0 !important;}
-.uniformStatic{position:absolute !important;inset:0 !important;display:block !important;z-index:1 !important;overflow:hidden !important;}
-.uniformStatic img{position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;display:block !important;object-fit:cover !important;object-position:center center !important;opacity:0 !important;animation:uniformPhoto 10s infinite !important;}
-.uniformStatic img:first-child{animation-delay:0s !important}.uniformStatic img:last-child{animation-delay:5s !important}
+.uniformPanel .uniformStatic{position:absolute !important;inset:0 !important;display:grid !important;grid-template-columns:1fr 1fr !important;gap:0 !important;z-index:1 !important;overflow:hidden !important;}
+.uniformPanel .uniformStatic img{position:relative !important;display:block !important;width:100% !important;height:100% !important;min-width:0 !important;min-height:0 !important;object-fit:cover !important;object-position:center center !important;opacity:1 !important;visibility:visible !important;animation:none !important;}
 .uniformPanel:after{content:"" !important;position:absolute !important;inset:0 !important;background:linear-gradient(0deg,rgba(3,25,45,.82),rgba(3,25,45,.10) 60%,rgba(3,25,45,0) 100%) !important;z-index:2 !important;pointer-events:none !important;}
 .uniformPanel .panelText{position:absolute !important;left:35px !important;bottom:28px !important;z-index:5 !important;max-width:420px !important;}
 .uniformPanel .panelText h2{color:#fff !important;text-shadow:0 2px 6px rgba(0,0,0,.8) !important;}
 .uniformPanel .panelText h2 em{color:#11b7ed !important;}
 .uniformPanel .panelText p{color:#eef7fb !important;text-shadow:0 2px 4px rgba(0,0,0,.8) !important;}
-@keyframes uniformPhoto{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
-@media(max-width:800px){.uniformPanel{height:330px !important;min-height:330px !important}.uniformPanel .panelText{left:25px !important;bottom:25px !important}}
-
-
-/* FIX UNIFORM CAROUSEL VISIBILITY 2026-10-01 */
-.uniformStatic img{opacity:1 !important;animation:uniformPhoto 10s infinite !important;}
-.uniformStatic img:first-child{animation-delay:0s !important;}
-.uniformStatic img:last-child{animation-delay:5s !important;}
-@keyframes uniformPhoto{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
-
-
-/* FINAL UNIFORM PANEL: show both uploaded photos inside original panel */
-.uniformPanel .uniformStatic{position:absolute !important;inset:0 !important;display:grid !important;grid-template-columns:1fr 1fr !important;gap:0 !important;overflow:hidden !important;z-index:1 !important;}
-.uniformPanel .uniformStatic img{position:relative !important;inset:auto !important;width:100% !important;height:100% !important;min-width:0 !important;min-height:0 !important;display:block !important;object-fit:cover !important;object-position:center center !important;opacity:1 !important;animation:none !important;}
-.uniformPanel .panelText{z-index:5 !important;}
-@media(max-width:800px){.uniformPanel .uniformStatic{grid-template-columns:1fr 1fr !important}.uniformPanel .uniformStatic img{object-position:center center !important;}}
+@media(max-width:800px){.uniformPanel{height:330px !important;min-height:330px !important}.uniformPanel .panelText{left:25px !important;bottom:25px !important}.uniformPanel .uniformStatic img{object-position:center center !important;}}
