@@ -511,3 +511,34 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
   .referenceHero .referenceCopy{padding:55px 0 50px !important;}
   .referenceHero .referenceCopy h1{font-size:52px !important;letter-spacing:-1.5px !important;}
 }
+
+/* INTERACTION DETAILS — subtle motion and premium hover states */
+.serviceFocusPanel,.uniformPanel,.refServiceGrid>div,.homeCta,.serviceFocusBtn,.uniformStatic img{transition:transform .35s ease,box-shadow .35s ease,background .35s ease;}
+.serviceFocusPanel:hover{box-shadow:inset 0 0 0 1px rgba(29,184,255,.16);}
+.serviceFocusPanel:hover .serviceFocusGlow{transform:scale(1.12);opacity:.95;}
+.serviceFocusGlow{transition:transform .55s ease,opacity .55s ease;}
+.serviceFocusItems>div{transition:transform .25s ease,background .25s ease,border-color .25s ease;}
+.serviceFocusItems>div:hover{transform:translateY(-5px);background:rgba(29,184,255,.13);border-color:rgba(88,230,255,.42);}
+.serviceFocusBtn{transition:transform .25s ease,background .25s ease,box-shadow .25s ease !important;}
+.serviceFocusBtn:hover{transform:translateY(-3px) !important;box-shadow:0 10px 24px rgba(0,0,0,.22);}
+.uniformPanel .uniformStatic img{transition:transform .5s ease,filter .5s ease !important;}
+.uniformPanel:hover .uniformStatic img{filter:saturate(1.08) contrast(1.03) !important;}
+.uniformPanel:hover .uniformStatic img:first-child{transform:scale(1.025) !important;}
+.uniformPanel:hover .uniformStatic img:last-child{transform:scale(1.025) !important;}
+.refServiceGrid>div{position:relative;overflow:hidden;}
+.refServiceGrid>div:after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:#0b9eea;transform:scaleX(0);transform-origin:left;transition:transform .3s ease;}
+.refServiceGrid>div:hover{transform:translateY(-6px);background:#f7fbfe;box-shadow:0 14px 30px rgba(2,22,40,.10);}
+.refServiceGrid>div:hover:after{transform:scaleX(1);}
+.homeCta{
+  background:linear-gradient(135deg,#020914 0%,#06182d 52%,#0a2d4d 100%) !important;
+  color:#fff !important;
+  padding:78px 24px !important;
+}
+.homeCta:before{background:rgba(0,159,234,.13) !important;}
+.homeCta:after{border-color:rgba(54,185,240,.16) !important;}
+.homeCta h2{color:#fff !important;font-size:46px !important;font-weight:950 !important;letter-spacing:-1px !important;text-transform:uppercase !important;}
+.homeCta p{color:#b9cbd8 !important;max-width:680px !important;}
+.homeCta .refBtn{background:#0a9bea !important;color:#fff !important;box-shadow:0 10px 30px rgba(0,135,220,.28) !important;}
+.homeCta .refBtn:hover{background:#19b4ff !important;transform:translateY(-3px) !important;box-shadow:0 15px 35px rgba(0,155,235,.35) !important;}
+.homeCta .container{position:relative;}
+.homeCta .container:before{content:"W&A";position:absolute;right:-15px;top:-55px;font-size:110px;font-weight:950;letter-spacing:-8px;color:rgba(255,255,255,.025);pointer-events:none;}
