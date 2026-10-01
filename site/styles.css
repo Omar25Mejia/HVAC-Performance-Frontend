@@ -251,3 +251,9 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .referenceHero:after{z-index:1 !important;opacity:.12 !important;}
 .referenceHero .referenceHeroInner{position:relative !important;z-index:2 !important;}
 @media(max-width:800px){.referenceHero .heroBackgroundImage{object-position:center center !important;}}
+
+
+/* HERO CLEANUP - FINAL */
+.referenceHero .trustIcons{display:none !important;visibility:hidden !important;height:0 !important;overflow:hidden !important;}
+.referenceHero .referenceCopy > p{color:#fff !important;background:rgba(4,20,38,.82) !important;padding:10px 14px !important;border-radius:8px !important;text-shadow:0 2px 6px rgba(0,0,0,.95) !important;box-shadow:0 3px 12px rgba(0,0,0,.22) !important;}
+.referenceHero .referenceActions .refBtn.outline{color:#fff !important;background:rgba(3,24,45,.94) !important;border:1px solid #fff !important;box-shadow:0 4px 14px rgba(0,0,0,.45) !important;text-shadow:none !important;}
