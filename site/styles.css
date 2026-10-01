@@ -397,3 +397,8 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 /* UNIFORM PANEL — visibly smaller photos */
 .uniformPanel .uniformStatic{padding:0 !important;gap:0 !important;align-items:center !important;}
 .uniformPanel .uniformStatic img{width:86% !important;height:86% !important;margin:auto !important;object-fit:contain !important;object-position:center center !important;transform:none !important;}
+
+/* UNIFORM PANEL — force smaller centered portraits */
+.uniformPanel .uniformStatic{display:flex !important;align-items:center !important;justify-content:center !important;gap:0 !important;padding:0 !important;background:#dce9f0 !important;}
+.uniformPanel .uniformStatic img{flex:0 0 50% !important;width:50% !important;height:78% !important;max-width:50% !important;max-height:78% !important;margin:0 !important;object-fit:contain !important;object-position:center center !important;background:transparent !important;}
+@media(max-width:800px){.uniformPanel .uniformStatic img{height:78% !important;max-height:78% !important;}}
