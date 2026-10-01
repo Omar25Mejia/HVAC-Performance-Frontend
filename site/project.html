@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tell Us What You Need | HVAC Performance by W&A</title>
+<meta name="description" content="Describe your project and get a structured preliminary project assessment from HVAC Performance by W&A.">
+<link rel="stylesheet" href="styles.css?v=20261001-121">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="projectPage">
+<header class="topbar"><div class="container nav">
+<a class="brand" href="index.html"><img src="hvac-logo-tight.jpg?v=20260930-6" alt="HVAC Performance by W&A"></a>
+<nav><a data-en="Home" data-es="Inicio" href="index.html">Home</a><a data-en="Services" data-es="Servicios" href="services.html">Services</a><a data-en="Our Work" data-es="Nuestro trabajo" href="work.html">Our Work</a><a data-en="About Us" data-es="Nosotros" href="about.html">About Us</a><a class="active" data-en="Free Estimate" data-es="Cotización gratis" href="project.html">Free Estimate</a><a data-en="Contact" data-es="Contacto" href="contact.html">Contact</a><div class="languageSwitch"><button class="langBtn" type="button" onclick="toggleLanguage()">🇺🇸 EN / 🇪🇸 ES</button></div></nav>
+<button class="menuBtn" aria-label="Open menu">☰</button>
+</div></header>
+
+<main>
+<section class="projectHero"><div class="container">
+<div class="projectEyebrow">HVAC PERFORMANCE BY W&A</div>
+<h1 data-en="Tell us what you need." data-es="Cuéntanos lo que necesitas.">Tell us what you need.</h1>
+<p data-en="No long form. No guessing. Describe the job in your own words and we'll guide you through the details we need to understand it." data-es="Sin formularios interminables. Sin adivinar. Describe el trabajo con tus propias palabras y te guiaremos para entenderlo.">No long form. No guessing. Describe the job in your own words and we'll guide you through the details we need.</p>
+<div class="projectHeroBadges"><span>✓ Smart questions</span><span>✓ Project summary</span><span>✓ Preliminary materials</span></div>
+</div></section>
+
+<section class="projectWorkspace"><div class="container">
+<div class="projectLayout">
+<div class="chatShell">
+<div class="chatHeader"><div><b data-en="Project Assistant" data-es="Asistente de proyecto">Project Assistant</b><small data-en="Let's build your request together." data-es="Construyamos tu solicitud juntos.">Let's build your request together.</small></div><span id="stepLabel">START</span></div>
+<div id="chatMessages" class="chatMessages"></div>
+<div id="quickReplies" class="quickReplies"></div>
+<form id="chatForm" class="chatComposer">
+<textarea id="chatInput" rows="2" autocomplete="off" data-en-placeholder="Type your answer here..." data-es-placeholder="Escribe tu respuesta aquí..." placeholder="Type your answer here..."></textarea>
+<button type="submit" aria-label="Send">➜</button>
+</form>
+<div class="chatHint" data-en="You can describe measurements approximately. We'll flag anything that needs technical verification." data-es="Puedes dar medidas aproximadas. Marcaremos lo que necesite verificación técnica.">You can describe measurements approximately. We'll flag anything that needs technical verification.</div>
+</div>
+
+<aside class="projectSummary">
+<div class="summaryTop"><span>PROJECT</span><strong data-en="Your request" data-es="Tu solicitud">Your request</strong></div>
+<div id="summaryEmpty" class="summaryEmpty" data-en="Your project details will appear here as we build the request." data-es="Los detalles de tu proyecto aparecerán aquí mientras construimos la solicitud.">Your project details will appear here as we build the request.</div>
+<div id="summaryBody" class="hidden">
+<div class="summaryBlock"><small>TYPE</small><b id="sumType">—</b></div>
+<div class="summaryBlock"><small>PROPERTY</small><b id="sumProperty">—</b></div>
+<div class="summaryBlock"><small>DIMENSIONS</small><b id="sumDimensions">—</b></div>
+<div class="summaryBlock"><small>DETAILS</small><p id="sumDetails">—</p></div>
+<div class="summaryBlock"><small>LOCATION</small><p id="sumLocation">Not provided</p></div>
+</div>
+<div class="summaryNotice" data-en="Final quantities and pricing require a professional review." data-es="Las cantidades y precios finales requieren revisión profesional.">Final quantities and pricing require a professional review.</div>
+</aside>
+</div>
+</div></section>
+
+<section id="finalPanel" class="projectFinal hidden"><div class="container">
+<div class="finalGrid">
+<div><div class="projectEyebrow">READY TO SEND</div><h2 data-en="Your project brief is ready." data-es="Tu resumen de proyecto está listo.">Your project brief is ready.</h2><p data-en="Review the information, add your contact details and send it to the HVAC Performance team." data-es="Revisa la información, agrega tus datos y envíala al equipo de HVAC Performance.">Review the information, add your contact details and send it to the HVAC Performance team.</p><div id="aiResult" class="aiResult"></div></div>
+<form id="projectForm" class="projectForm">
+<input required id="customerName" name="customer_name" data-en-placeholder="Full name" data-es-placeholder="Nombre completo" placeholder="Full name">
+<input required id="customerPhone" name="phone" data-en-placeholder="Phone / WhatsApp" data-es-placeholder="Teléfono / WhatsApp" placeholder="Phone / WhatsApp">
+<input id="customerEmail" name="email" type="email" data-en-placeholder="Email (optional)" data-es-placeholder="Correo (opcional)" placeholder="Email (optional)">
+<input id="preferredTime" name="preferred_contact_time" data-en-placeholder="Best time to contact you (optional)" data-es-placeholder="Mejor horario para contactarte (opcional)" placeholder="Best time to contact you (optional)">
+<div class="locationRow"><button type="button" id="locationBtn" class="locationBtn">⌖ <span data-en="Add project location" data-es="Agregar ubicación del proyecto">Add project location</span></button><div id="locationStatus">Not provided</div></div>
+<label class="fileDrop"><input id="projectFiles" type="file" accept="image/*,.pdf" multiple><span>＋</span><b data-en="Add photos or documents" data-es="Agregar fotos o documentos">Add photos or documents</b><small data-en="Photos help us understand the job." data-es="Las fotos ayudan a entender el trabajo.">Photos help us understand the job.</small></label>
+<button class="submitProject" type="submit" data-en="Send project request →" data-es="Enviar solicitud del proyecto →">Send project request →</button>
+<div id="submitStatus" class="submitStatus"></div>
+</form>
+</div>
+</div></section>
+</main>
+
+<footer><div class="container footerGrid"><div><img class="footerLogo" src="hvac-logo-tight.jpg?v=20260930-6" alt="HVAC Performance by W&A"></div><div><b data-en="Services" data-es="Servicios">Services</b><a href="services.html">HVAC</a><a href="services.html">Property Services</a></div><div><b data-en="Contact" data-es="Contacto">Contact</b><a href="project.html">Free Estimate</a><a href="tel:+12025550147">Call Us</a></div></div><div class="container copyright">© 2026 HVAC Performance by W&A. All rights reserved.</div></footer>
+<script src="site.js"></script><script src="project.js?v=20261001-121"></script>
+</body></html>
