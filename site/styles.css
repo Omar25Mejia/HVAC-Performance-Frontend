@@ -367,3 +367,10 @@ linear-gradient(135deg,#071a33 0%,#0b5d98 58%,#dbeff7 100%);
 .uniformStatic img:first-child{animation-delay:0s !important;}
 .uniformStatic img:last-child{animation-delay:5s !important;}
 @keyframes uniformPhoto{0%,42%{opacity:1}50%,92%{opacity:0}100%{opacity:1}}
+
+
+/* FINAL UNIFORM PANEL: show both uploaded photos inside original panel */
+.uniformPanel .uniformStatic{position:absolute !important;inset:0 !important;display:grid !important;grid-template-columns:1fr 1fr !important;gap:0 !important;overflow:hidden !important;z-index:1 !important;}
+.uniformPanel .uniformStatic img{position:relative !important;inset:auto !important;width:100% !important;height:100% !important;min-width:0 !important;min-height:0 !important;display:block !important;object-fit:cover !important;object-position:center center !important;opacity:1 !important;animation:none !important;}
+.uniformPanel .panelText{z-index:5 !important;}
+@media(max-width:800px){.uniformPanel .uniformStatic{grid-template-columns:1fr 1fr !important}.uniformPanel .uniformStatic img{object-position:center center !important;}}
