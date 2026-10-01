@@ -4,10 +4,10 @@ if (window.location.search) {
   window.history.replaceState({}, document.title, cleanUrl);
 }
 const SUPABASE_URL="https://jwswzoylhgfyovjwtnyy.supabase.co";const SUPABASE_KEY="sb_publishable_dq-o7sOMO2OMOsLGLdOOIw_TSCt0TLI";const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const $=s=>document.querySelector(s);let quotes=[],services=[],content=[],settings=null;
+const $=s=>document.querySelector(s);let quotes=[],services=[],content=[],settings=null,projects=[];
 async function init(){const {data:{session}}=await db.auth.getSession();if(session){await showApp(session)}else showLogin();db.auth.onAuthStateChange(async(_e,s)=>{if(s)await showApp(s);else showLogin()})}
 function showLogin(){$('#loginView').classList.remove('hidden');$('#appView').classList.add('hidden')}
-async function showApp(session){$('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');$('#adminEmail').textContent=session.user.email;await loadAll()}
+async function showApp(session){$('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');$('#adminEmail').textContent=session.user.email;await loadAll();await loadProjects()}
 $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();$('#loginError').textContent='';const {error}=await db.auth.signInWithPassword({email:$('#email').value,password:$('#password').value});if(error)$('#loginError').textContent=error.message});
 $('#showSignup').onclick=()=>$('#signupForm').classList.toggle('hidden');
 $('#signupForm').addEventListener('submit',async e=>{e.preventDefault();$('#signupError').textContent='';const {error}=await db.auth.signUp({email:$('#signupEmail').value,password:$('#signupPassword').value,options:{data:{full_name:$('#signupName').value}}});if(error)$('#signupError').textContent=error.message;else $('#signupError').textContent='Account created. Check your email if confirmation is enabled.'});
@@ -34,7 +34,7 @@ const projectNav=document.querySelector('nav button[data-view="projects"]');
 async function loadProjects(){
  const {data,error}=await db.from("project_requests").select("*").order("created_at",{ascending:false});
  projects=data||[];
- if(error){document.querySelector("#projectsTable").innerHTML="<tr><td colspan='6'>Unable to load project briefs.</td></tr>";return;}
+ if(error){document.querySelector("#projectsTable").innerHTML="<tr><td colspan='6'>Unable to load project briefs: "+esc(error.message||"Unknown error")+"</td></tr>";return;}
  renderProjectTable();
 }
 function renderProjectTable(){
