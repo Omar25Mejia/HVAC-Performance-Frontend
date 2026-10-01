@@ -30,3 +30,24 @@ $('#galleryUpload').onchange=async e=>{const f=e.target.files[0];if(!f)return;co
 function renderSettings(){if(!settings)return;const fields=['business_name','phone','email','address','service_area','hours','facebook_url','instagram_url','tiktok_url'];$('#settingsForm').innerHTML=fields.map(f=>'<div class="field"><label>'+f.replaceAll('_',' ')+'</label><input data-setting="'+f+'" value="'+esc(settings[f]||'')+'"></div>').join('')}
 $('#saveSettings').onclick=async()=>{const obj={updated_at:new Date().toISOString()};document.querySelectorAll('[data-setting]').forEach(x=>obj[x.dataset.setting]=x.value);await db.from('site_settings').update(obj).eq('id',true);alert('Settings saved.');await loadAll()};
 $('#refreshQuotes').onclick=loadAll;$('#closeModal').onclick=()=>$('#modal').classList.add('hidden');function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}init();
+const projectNav=document.querySelector('nav button[data-view="projects"]');
+async function loadProjects(){
+ const {data,error}=await db.from("project_requests").select("*").order("created_at",{ascending:false});
+ projects=data||[];
+ if(error){document.querySelector("#projectsTable").innerHTML="<tr><td colspan='6'>Unable to load project briefs.</td></tr>";return;}
+ renderProjectTable();
+}
+function renderProjectTable(){
+ const body=document.querySelector("#projectsTable"); if(!body)return;
+ body.innerHTML=projects.map(p=>'<tr><td>'+new Date(p.created_at).toLocaleDateString()+'</td><td>'+esc(p.customer_name||"—")+'</td><td>'+esc(p.project_summary||p.project_type||"Project")+'</td><td>'+esc(p.service_category||"—")+'</td><td><span class="badge '+esc(p.status||"new")+'">'+esc(p.status||"new")+'</span></td><td><button class="miniBtn" onclick="viewProject(\''+p.id+'\')">View</button></td></tr>').join("")||'<tr><td colspan="6">No smart project briefs yet.</td></tr>';
+}
+window.viewProject=async id=>{
+ const p=projects.find(x=>x.id===id); if(!p)return;
+ const a=p.project_data||{};
+ const materials=Array.isArray(p.materials)?p.materials:[];
+ $('#modalBody').innerHTML='<h2>'+esc(p.customer_name||"Project request")+'</h2><div class="detailGrid"><div><strong>Contact</strong><p>'+esc(p.phone||"—")+' · '+esc(p.email||"—")+'</p></div><div><strong>Project</strong><p>'+esc(p.project_type||"—")+'</p></div><div><strong>Summary</strong><p>'+esc(p.project_summary||"—")+'</p></div><div><strong>Technical</strong><p>'+esc(p.technical_summary||"—")+'</p></div><div><strong>Location</strong><p>'+esc(p.location_label||"—")+(p.latitude?'<br><a target="_blank" href="https://www.google.com/maps?q='+p.latitude+','+p.longitude+'">Open map</a>':"")+'</p></div><div><strong>Answers</strong><p>'+Object.entries(a).map(([k,v])=>'<b>'+esc(k)+':</b> '+esc(v)).join("<br>")+'</p></div><div><strong>Materials</strong><p>'+ (materials.map(x=>esc(x.quantity||"")+" "+esc(x.unit||"")+" "+esc(x.item||"")).join("<br>")||"—")+'</p></div><label><strong>Status</strong><select id="projectStatus"><option>new</option><option>reviewing</option><option>contacted</option><option>quoted</option><option>closed</option><option>cancelled</option></select></label><button class="primary" onclick="saveProject(\''+p.id+'\')">Save status</button></div>';
+ $('#projectStatus').value=p.status||"new"; $('#modal').classList.remove("hidden");
+};
+window.saveProject=async id=>{const {error}=await db.from("project_requests").update({status:$("#projectStatus").value,updated_at:new Date().toISOString()}).eq("id",id);if(!error){$("#modal").classList.add("hidden");await loadProjects();}};
+projectNav?.addEventListener("click",async e=>{e.preventDefault();document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));$("#projectsView").classList.remove("hidden");document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===projectNav));$("#viewTitle").textContent="Smart Project Briefs";await loadProjects();});
+document.querySelector("#refreshProjects")?.addEventListener("click",loadProjects);
