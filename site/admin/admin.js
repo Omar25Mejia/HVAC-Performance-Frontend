@@ -58,10 +58,10 @@ window.saveService=async id=>{const vals=[...document.querySelectorAll('[data-id
 $('#addService').onclick=async()=>{await db.from('services').insert({name_en:'New Service',name_es:'Nuevo servicio',description_en:'',description_es:'',icon:'✓',sort_order:services.length+1});await loadAll()};
 function renderContent(){
  $('#contentForm').innerHTML=content.map(c=>{
-  const label=esc(c.content_key.replaceAll('_',' ')),desc=esc(c.description||''),isImage=c.content_type==='image';
+  const labelMap={hero_image:'Main website image',logo_image:'Website logo',home_uniform_1:'Uniform photo 1',home_uniform_2:'Uniform photo 2',about_image:'About page image'},label=esc(labelMap[c.content_key]||c.content_key.replaceAll('_',' ')),desc=esc(c.description||''),isImage=c.content_type==='image';
   if(isImage){
    const url=c.value_en||c.value_es||'',hint=c.content_key==='hero_image'?'Required: 1536 × 1024 px · JPG, PNG or WEBP · max 6 MB':c.content_key==='about_image'?'Recommended: 1200 × 800 px · max 6 MB':c.content_key.startsWith('home_uniform')?'Recommended: 1200 × 800 px · max 6 MB':'Image · max 6 MB';
-   return '<div class="contentImageField"><div class="imageFieldHead"><div><label>'+label+'</label><small>'+desc+'</small></div><span>'+hint+'</span></div><div class="contentImageEditor">'+(url?'<img src="'+esc(resolvePublicUrl(url))+'" alt="">':'<div class="imagePlaceholder">No image</div>')+'<div><input type="file" accept="image/jpeg,image/png,image/webp" data-image-content="'+c.id+'" data-image-key="'+esc(c.content_key)+'"><button type="button" class="miniBtn" data-image-upload="'+c.id+'">Upload / replace image</button><small class="uploadState" id="uploadState-'+c.id+'"></small></div></div></div>';
+   return '<div class="contentImageField"><div class="imageFieldHead"><div><label>'+label+'</label><small>'+desc+'</small></div><span>'+hint+'</span></div><div class="contentImageEditor">'+(url?'<img src="'+esc(resolvePublicUrl(url))+'" alt="">':'<div class="imagePlaceholder">No image</div>')+'<div><input type="file" accept="image/jpeg,image/png,image/webp" data-image-content="'+c.id+'" data-image-key="'+esc(c.content_key)+'"><button type="button" class="miniBtn" data-image-upload="'+c.id+'">Change image</button><small class="uploadState" id="uploadState-'+c.id+'"></small></div></div></div>';
   }
   return '<div class="field"><label>'+label+' — '+desc+'</label><input data-content="'+c.id+'" data-lang="en" value="'+esc(c.value_en||'')+'"><input data-content="'+c.id+'" data-lang="es" value="'+esc(c.value_es||'')+'"></div>';
  }).join('');
