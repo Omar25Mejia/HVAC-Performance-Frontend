@@ -95,7 +95,7 @@ function renderProjectWorkspace(p, fileLinks, materials){
  const matRows=materials.map(x=>'<div class="materialItem"><b>'+esc(x.item||x.name||"—")+'</b><span>'+esc(x.quantity||"")+" "+esc(x.unit||"")+'</span></div>').join("")||'<p>'+projectLabel("notAvailable")+'</p>';
  const files=fileLinks.length?'<div class="fileList">'+fileLinks.join("")+'</div>':'<p>'+projectLabel("notAvailable")+'</p>';
  const map=p.latitude&&p.longitude?'<a target="_blank" href="https://www.google.com/maps?q='+p.latitude+','+p.longitude+'">'+projectLabel("openMap")+' ↗</a>':'<p>'+projectLabel("notAvailable")+'</p>';
- return '<div class="workspaceHero"><div class="workspaceHero"><h2>'+esc(p.customer_name||projectLabel("newProject"))+'</h2><p>'+esc(p.project_summary||p.project_type||projectLabel("newProject"))+'</p></div></div>'+
+ return '<div class="workspaceHero"><h2>'+esc(p.customer_name||projectLabel("newProject"))+'</h2><p>'+esc(p.project_summary||p.project_type||projectLabel("newProject"))+'</p></div></div>'+
  '<div class="workspaceBody"><div class="infoCards">'+
  '<div class="infoChip"><small>'+projectLabel("client")+'</small><strong>'+esc(p.customer_name||"—")+'</strong></div>'+
  '<div class="infoChip"><small>'+projectLabel("category")+'</small><strong>'+esc(p.service_category||"—")+'</strong></div>'+
@@ -116,7 +116,7 @@ window.viewProject=async id=>{
  for(const f of files){const s=await db.storage.from("project-uploads").createSignedUrl(f.path,3600);if(!s.error)fileLinks.push('<a target="_blank" href="'+s.data.signedUrl+'">'+esc(f.name||f.path)+' ↗</a>');}
  const materials=Array.isArray(p.materials)?p.materials:[];
  $("#modalBody").innerHTML=renderProjectWorkspace(p,fileLinks,materials);
- $("#projectStatus").value=p.status||"new"; $("#modal").classList.remove("hidden");
+ $("#projectStatus").value=p.status||"new"; $("#projectStatus").dataset.projectId=p.id; $("#modal").classList.remove("hidden");
 };
 window.generateProjectAI=async id=>{
  const p=projects.find(x=>x.id===id);if(!p)return;
