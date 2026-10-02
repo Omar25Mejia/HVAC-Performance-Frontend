@@ -5,16 +5,30 @@ if (window.location.search) {
 }
 const SUPABASE_URL="https://jwswzoylhgfyovjwtnyy.supabase.co";const SUPABASE_KEY="sb_publishable_dq-o7sOMO2OMOsLGLdOOIw_TSCt0TLI";const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=s=>document.querySelector(s);let quotes=[],services=[],content=[],settings=null,projects=[];
-async function init(){const {data:{session}}=await db.auth.getSession();if(session){await showApp(session)}else showLogin();db.auth.onAuthStateChange(async(_e,s)=>{if(s)await showApp(s);else showLogin()})}
+let activeUserId=null;
+async function init(){
+ const {data:{session}}=await db.auth.getSession();
+ if(session){await showApp(session)}else{activeUserId=null;showLogin()}
+ db.auth.onAuthStateChange(async(_e,s)=>{
+  if(s){if(activeUserId!==s.user.id)await showApp(s)}
+  else{activeUserId=null;showLogin()}
+ });
+}
 function showLogin(){$('#loginView').classList.remove('hidden');$('#appView').classList.add('hidden')}
-async function showApp(session){$('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');$('#adminEmail').textContent=session.user.email;await loadAll();await loadProjects()}
+async function showApp(session){
+ if(activeUserId===session.user.id && !$('#appView').classList.contains('hidden'))return;
+ activeUserId=session.user.id;
+ $('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');$('#adminEmail').textContent=session.user.email;
+ await loadAll();
+ renderProjectTable();
+}
 $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();$('#loginError').textContent='';const {error}=await db.auth.signInWithPassword({email:$('#email').value,password:$('#password').value});if(error)$('#loginError').textContent=error.message});
 $('#showSignup').onclick=()=>$('#signupForm').classList.toggle('hidden');
 $('#signupForm').addEventListener('submit',async e=>{e.preventDefault();$('#signupError').textContent='';const {error}=await db.auth.signUp({email:$('#signupEmail').value,password:$('#signupPassword').value,options:{data:{full_name:$('#signupName').value}}});if(error)$('#signupError').textContent=error.message;else $('#signupError').textContent='Account created. Check your email if confirmation is enabled.'});
 $('#logout').onclick=()=>db.auth.signOut();
 document.querySelectorAll('nav button[data-view],button[data-view]').forEach(b=>b.onclick=()=>openView(b.dataset.view));
 function openView(v){document.querySelectorAll('.view').forEach(x=>x.classList.add('hidden'));$('#'+v+'View').classList.remove('hidden');document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===v));$('#viewTitle').textContent={dashboard:'Dashboard',quotes:'Quote Requests',services:'Services',content:'Website Content',gallery:'Gallery',settings:'Settings'}[v]||'Dashboard';if(v==='quotes')renderQuotes();if(v==='services')renderServices();if(v==='content')renderContent();if(v==='gallery')renderGallery();if(v==='settings')renderSettings()}
-async function loadAll(){const [q,s,c,g,st,pj]=await Promise.all([db.from('quote_requests').select('*').order('created_at',{ascending:false}),db.from('services').select('*').order('sort_order'),db.from('site_content').select('*').order('content_key'),db.from('gallery_items').select('*').order('sort_order'),db.from('site_settings').select('*').eq('id',true).single(),db.rpc('get_admin_project_requests')]);quotes=q.data||[];services=s.data||[];content=c.data||[];settings=st.data;projects=pj.data||[];const allRequests=[...quotes,...projects];$('#statTotal').textContent=allRequests.length;$('#statPending').textContent=quotes.filter(x=>x.status==='pending').length+projects.filter(x=>['new','reviewing'].includes(x.status)).length;$('#statContacted').textContent=quotes.filter(x=>x.status==='contacted').length+projects.filter(x=>x.status==='contacted').length;$('#statClosed').textContent=quotes.filter(x=>x.status==='closed').length+projects.filter(x=>x.status==='closed').length;renderRecent();renderDashboardCharts();renderQuotes();renderServices();renderContent();renderGallery();renderSettings()}
+async function loadAll(){const [q,s,c,g,st,pj]=await Promise.all([db.from('quote_requests').select('*').order('created_at',{ascending:false}),db.from('services').select('*').order('sort_order'),db.from('site_content').select('*').order('content_key'),db.from('gallery_items').select('*').order('sort_order'),db.from('site_settings').select('*').eq('id',true).single(),db.rpc('get_admin_project_requests')]);quotes=q.data||[];services=s.data||[];content=c.data||[];settings=st.data;projects=pj.error?[]:(Array.isArray(pj.data)?pj.data:[]);const allRequests=[...quotes,...projects];$('#statTotal').textContent=allRequests.length;$('#statPending').textContent=quotes.filter(x=>x.status==='pending').length+projects.filter(x=>['new','reviewing'].includes(x.status)).length;$('#statContacted').textContent=quotes.filter(x=>x.status==='contacted').length+projects.filter(x=>x.status==='contacted').length;$('#statClosed').textContent=quotes.filter(x=>x.status==='closed').length+projects.filter(x=>x.status==='closed').length;renderRecent();renderDashboardCharts();renderQuotes();renderServices();renderContent();renderGallery();renderSettings()}
 function renderRecent(){
  const all=[...projects.map(p=>({id:p.id,created_at:p.created_at,name:p.customer_name||'Project request',service:p.service_category||p.project_type||'Project',phone:p.phone||'',status:p.status||'new',project:true,summary:p.project_summary})),...quotes.map(q=>({id:q.id,created_at:q.created_at,name:q.name,service:q.service,phone:q.phone,status:q.status||'pending',project:false,summary:q.message}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
  $('#recentQuotes').innerHTML=all.slice(0,7).map(q=>'<button class="requestNotification '+(q.project?'projectNotice':'quoteNotice')+'" onclick="'+(q.project?'viewProject(\\''+q.id+'\\')':'viewQuote(\\''+q.id+'\\')')+'"><span class="notificationIcon">'+(q.project?'✦':'↗')+'</span><span class="notificationBody"><b>'+esc(q.name)+'</b><small>'+esc(q.project?'New project request':'Quote request')+' · '+esc(q.service)+'</small><em>'+esc(q.summary||q.phone||'New request')+'</em></span><span class="notificationTime">'+new Date(q.created_at).toLocaleDateString()+'</span></button>').join('')||'<div class="emptyDashboard">No requests yet.</div>';
