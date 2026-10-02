@@ -41,13 +41,6 @@ function renderProjectTable(){
  const body=document.querySelector("#projectsTable"); if(!body)return;
  body.innerHTML=projects.map(p=>'<tr><td>'+new Date(p.created_at).toLocaleDateString()+'</td><td>'+esc(p.customer_name||"—")+'</td><td>'+esc(p.project_summary||p.project_type||"Project")+'</td><td>'+esc(p.service_category||"—")+'</td><td><span class="badge '+esc(p.status||"new")+'">'+esc(p.status||"new")+'</span></td><td><button class="miniBtn" onclick="viewProject(\''+p.id+'\')">View</button></td></tr>').join("")||'<tr><td colspan="6">No smart project briefs yet.</td></tr>';
 }
-window.viewProject=async id=>{
- const p=projects.find(x=>x.id===id); if(!p)return;
- const a=p.project_data||{};
- const materials=Array.isArray(p.materials)?p.materials:[]; const files=Array.isArray(p.customer_files)?p.customer_files:[]; const fileLinks=[]; for(const f of files){const s=await db.storage.from("project-uploads").createSignedUrl(f.path,3600); if(!s.error)fileLinks.push('<a target="_blank" href="'+s.data.signedUrl+'">'+esc(f.name||f.path)+'</a>');}
- $('#modalBody').innerHTML='<h2>'+esc(p.customer_name||"Project request")+'</h2><div class="detailGrid"><div><strong>Contact</strong><p>'+esc(p.phone||"—")+' · '+esc(p.email||"—")+'</p></div><div><strong>Project</strong><p>'+esc(p.project_type||"—")+'</p></div><div><strong>Summary</strong><p>'+esc(p.project_summary||"—")+'</p></div><div><strong>Technical</strong><p>'+esc(p.technical_summary||"—")+'</p></div><div><strong>Location</strong><p>'+esc(p.location_label||"—")+(p.latitude?'<br><a target="_blank" href="https://www.google.com/maps?q='+p.latitude+','+p.longitude+'">Open map</a>':"")+'</p></div><div><strong>Answers</strong><p>'+Object.entries(a).map(([k,v])=>'<b>'+esc(k)+':</b> '+esc(v)).join("<br>")+'</p></div><div><strong>Files</strong><p>'+ (fileLinks.join("<br>")||"—")+'</p></div><div><strong>Materials</strong><p>'+ (materials.map(x=>esc(x.quantity||"")+" "+esc(x.unit||"")+" "+esc(x.item||"")).join("<br>")||"—")+'</p></div><label><strong>Status</strong><select id="projectStatus"><option>new</option><option>reviewing</option><option>contacted</option><option>quoted</option><option>closed</option><option>cancelled</option></select></label><button class="primary" onclick="saveProject(\''+p.id+'\')">Save status</button></div>';
- $('#projectStatus').value=p.status||"new"; $('#modal').classList.remove("hidden");
-};
 window.saveProject=async id=>{const {error}=await db.rpc("update_admin_project_status",{p_id:id,p_status:$("#projectStatus").value});if(!error){$("#modal").classList.add("hidden");await loadProjects();}};
 projectNav?.addEventListener("click",async e=>{e.preventDefault();document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));$("#projectsView").classList.remove("hidden");document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===projectNav));$("#viewTitle").textContent="Smart Project Briefs";await loadProjects();});
 document.querySelector("#refreshProjects")?.addEventListener("click",loadProjects);
@@ -110,14 +103,6 @@ function renderProjectWorkspace(p, fileLinks, materials){
  '<div class="sideCard"><h3>'+projectLabel("files")+'</h3>'+files+'</div>'+
  '<div class="sideCard"><div class="statusLine"><select id="projectStatus"><option value="new">new</option><option value="reviewing">reviewing</option><option value="contacted">contacted</option><option value="quoted">quoted</option><option value="closed">closed</option><option value="cancelled">cancelled</option></select><button class="primary" onclick="saveProject(\''+p.id+'\')">'+projectLabel("save")+'</button></div></div></div></div></div>';
 }
-window.viewProject=async id=>{
- const p=projects.find(x=>x.id===id); if(!p)return;
- const files=Array.isArray(p.customer_files)?p.customer_files:[], fileLinks=[];
- for(const f of files){const s=await db.storage.from("project-uploads").createSignedUrl(f.path,3600);if(!s.error)fileLinks.push('<a target="_blank" href="'+s.data.signedUrl+'">'+esc(f.name||f.path)+' ↗</a>');}
- const materials=Array.isArray(p.materials)?p.materials:[];
- $("#modalBody").innerHTML=renderProjectWorkspace(p,fileLinks,materials);
- $("#projectStatus").value=p.status||"new"; $("#projectStatus").dataset.projectId=p.id; $("#modal").classList.remove("hidden");
-};
 window.generateProjectAI=async id=>{
  const p=projects.find(x=>x.id===id);if(!p)return;
  const btn=document.querySelector(".aiAction");if(!btn)return;
