@@ -144,3 +144,53 @@ function setAdminLanguage(lang){
  const langBtn=$("#languageToggle");if(langBtn)langBtn.textContent="🇺🇸 EN / 🇪🇸 ES";
  if(!$("#modal").classList.contains("hidden")){const pId=document.querySelector("#projectStatus")?.dataset?.projectId; if(pId)window.viewProject(pId);}
 }
+
+/* FINAL PROJECT COMMAND CENTER */
+function projectIcon(type){
+ const icons={phone:'☎',mail:'✉',map:'⌖',file:'□',cube:'◇'};
+ return '<span class="tinyIcon">'+(icons[type]||'•')+'</span>';
+}
+function projectStatusSteps(status){
+ const order=['new','reviewing','contacted','quoted','closed']; const idx=order.indexOf(status);
+ const labels=adminLang()==='es'?['Nueva','Revisión','Contactado','Cotizada','Cerrada']:['New','Review','Contacted','Quoted','Closed'];
+ return '<div class="projectTimeline">'+labels.map((x,i)=>'<div class="timelineStep '+(i<=idx?'active':'')+'">'+x+'</div>').join('')+'</div>';
+}
+async function signedProjectSketch(p){
+ if(!p.sketch_url)return null;
+ const r=await db.storage.from("project-uploads").createSignedUrl(p.sketch_url,3600);
+ return r.error?null:r.data.signedUrl;
+}
+function renderCommandCenter(p,fileLinks,materials,sketchUrl){
+ const es=adminLang()==='es', a=p.project_data||{};
+ const L=(en,esx)=>es?esx:en;
+ const answers=Object.entries(a).filter(([k,v])=>v!==null&&v!==''&&typeof v!=='object').map(([k,v])=>'<div class="answerRow"><b>'+esc(k.replaceAll('_',' '))+'</b><br>'+esc(v)+'</div>').join('')||'<p>'+L('No additional information.','Sin información adicional.')+'</p>';
+ const mats=materials.map(x=>'<div class="materialItem"><b>'+esc(x.item||x.name||'—')+'</b><span>'+esc(x.quantity||'')+' '+esc(x.unit||'')+'</span></div>').join('')||'<p>'+L('Not analyzed yet.','Aún no analizado.')+'</p>';
+ const files=fileLinks.length?'<div class="fileList">'+fileLinks.join('')+'</div>':'<p>'+L('No files attached.','No hay archivos adjuntos.')+'</p>';
+ const dim=a.dimensions||'—', category=p.service_category||'—';
+ const visual=sketchUrl?'<img src="'+sketchUrl+'" alt="'+L('AI project visualization','Visualización IA del proyecto')+'">':conceptSvg(p);
+ return '<div class="projectCommand">'+
+ '<div class="commandTop"><div><div class="eyebrow" style="color:#65d3ff">'+L('HVAC PERFORMANCE · PROJECT INTELLIGENCE','HVAC PERFORMANCE · INTELIGENCIA DE PROYECTO')+'</div><h2>'+esc(p.customer_name||L('Project request','Solicitud de proyecto'))+'</h2><p>'+esc(p.project_summary||p.project_type||L('Project request','Solicitud de proyecto'))+'</p></div><div class="commandStatus"><span class="statusPill">'+esc(p.status||'new')+'</span></div></div>'+
+ '<div class="commandBody">'+projectStatusSteps(p.status||'new')+
+ '<div class="projectTopGrid"><div class="commandCard"><h3>'+L('Conceptual project visualization','Visualización conceptual del proyecto')+'</h3><p style="margin-bottom:12px">'+L('Technical preview generated from the customer information. It is preliminary and must be verified on site.','Vista técnica generada a partir de la información del cliente. Es preliminar y debe verificarse en sitio.')+'</p><div class="aiCanvas"><span class="canvasTag">'+(sketchUrl?L('AI VISUALIZATION','VISUALIZACIÓN IA'):L('TECHNICAL PREVIEW','VISTA TÉCNICA'))+'</span><span class="canvasMeta">'+esc(dim)+'</span>'+visual+'</div><div class="aiToolbar"><button class="aiPrimary" onclick="generateProjectAI(\''+p.id+'\')">✦ '+L('Generate AI visualization','Generar visualización IA')+'</button><button class="aiSecondary" onclick="showTechnicalView(\''+p.id+'\')">▣ '+L('Technical view','Vista técnica')+'</button></div></div>'+
+ '<div class="commandCard"><h3>'+L('Project snapshot','Resumen del proyecto')+'</h3><div class="metricGrid"><div class="metric"><small>'+L('Category','Categoría')+'</small><strong>'+esc(category)+'</strong></div><div class="metric"><small>'+L('Project type','Tipo')+'</small><strong>'+esc(p.project_type||'—')+'</strong></div><div class="metric"><small>'+L('Dimensions','Dimensiones')+'</small><strong>'+esc(dim)+'</strong></div><div class="metric"><small>'+L('Location','Ubicación')+'</small><strong>'+(p.latitude&&p.longitude?L('Pinned location','Ubicación fijada'):'—')+'</strong></div></div><h3 style="margin-top:18px">'+L('Customer contact','Contacto del cliente')+'</h3><p>'+projectIcon('phone')+' '+esc(p.phone||'—')+'<br>'+projectIcon('mail')+' '+esc(p.email||'—')+'</p><div class="actionRow" style="margin-top:13px">'+(p.phone?'<a class="actionBtn primary" href="tel:'+encodeURIComponent(p.phone)+'">'+L('Call','Llamar')+'</a>':'')+(p.phone?'<a class="actionBtn" target="_blank" href="https://wa.me/'+encodeURIComponent(p.phone.replace(/[^0-9]/g,''))+'">'+L('WhatsApp','WhatsApp')+'</a>':'')+(p.latitude&&p.longitude?'<a class="actionBtn" target="_blank" href="https://www.google.com/maps?q='+p.latitude+','+p.longitude+'">'+L('Open map','Abrir mapa')+'</a>':'')+'</div></div></div>'+
+ '<div class="intelSection"><div class="commandCard"><h3>'+L('AI technical summary','Resumen técnico IA')+'</h3><p>'+esc(p.technical_summary||L('The technical analysis will appear here after AI processing.','El análisis técnico aparecerá aquí después del procesamiento de IA.'))+'</p></div><div class="commandCard"><h3>'+L('Preliminary materials','Materiales preliminares')+'</h3><div class="materialList">'+mats+'</div></div><div class="commandCard"><h3>'+L('Customer information','Información del cliente')+'</h3><div class="projectAnswers">'+answers+'</div></div></div>'+
+ '<div class="intelSection"><div class="commandCard"><h3>'+L('Files & location','Archivos y ubicación')+'</h3>'+files+(p.latitude&&p.longitude?'<div style="margin-top:10px">'+projectIcon('map')+' <a target="_blank" href="https://www.google.com/maps?q='+p.latitude+','+p.longitude+'">'+L('View pinned location','Ver ubicación fijada')+' ↗</a></div>':'')+'</div><div class="commandCard"><h3>'+L('Preliminary estimate','Estimación preliminar')+'</h3><p>'+((p.preliminary_estimate&&p.preliminary_estimate.note)?esc(p.preliminary_estimate.note):L('No preliminary estimate has been calculated yet.','Aún no se ha calculado una estimación preliminar.'))+'</p></div><div class="commandCard"><h3>'+L('Request actions','Acciones de la solicitud')+'</h3><div class="statusLine"><select id="projectStatus"><option value="new">'+L('New','Nueva')+'</option><option value="reviewing">'+L('Reviewing','En revisión')+'</option><option value="contacted">'+L('Contacted','Contactado')+'</option><option value="quoted">'+L('Quoted','Cotizada')+'</option><option value="closed">'+L('Closed','Cerrada')+'</option><option value="cancelled">'+L('Cancelled','Cancelada')+'</option></select><button class="primary" onclick="saveProject(\''+p.id+'\')">'+L('Save status','Guardar estado')+'</button></div></div></div>'+
+ '<div style="margin-top:14px;text-align:right;color:#718197;font-size:10px">'+L('AI visualization is conceptual. Dimensions, quantities and engineering must be verified by the contractor.','La visualización IA es conceptual. Las medidas, cantidades y la ingeniería deben ser verificadas por el contratista.')+'</div>'+
+ '</div></div>';
+}
+window.viewProject=async id=>{
+ const p=projects.find(x=>x.id===id);if(!p)return;
+ const files=Array.isArray(p.customer_files)?p.customer_files:[],links=[];
+ for(const f of files){const r=await db.storage.from("project-uploads").createSignedUrl(f.path,3600);if(!r.error)links.push('<a target="_blank" href="'+r.data.signedUrl+'">'+projectIcon('file')+' '+esc(f.name||f.path)+' ↗</a>');}
+ const materials=Array.isArray(p.materials)?p.materials:[];
+ const sketch=await signedProjectSketch(p);
+ const card=document.querySelector("#modal .modalCard");card?.classList.add("projectModal");
+ $("#modalBody").innerHTML=renderCommandCenter(p,links,materials,sketch);
+ $("#projectStatus").value=p.status||"new";$("#projectStatus").dataset.projectId=p.id;
+ $("#modal").classList.remove("hidden");
+};
+window.showTechnicalView=id=>{
+ const p=projects.find(x=>x.id===id);if(!p)return;
+ const stage=document.querySelector(".aiCanvas");if(!stage)return;
+ stage.innerHTML='<span class="canvasTag">'+(adminLang()==='es'?'VISTA TÉCNICA':'TECHNICAL VIEW')+'</span><span class="canvasMeta">'+esc((p.project_data||{}).dimensions||'—')+'</span>'+conceptSvg(p);
+};
