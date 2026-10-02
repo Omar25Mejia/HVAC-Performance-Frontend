@@ -57,3 +57,90 @@ const adminTranslations={en:{title:{dashboard:"Dashboard",quotes:"Quote Requests
 function setAdminLanguage(lang){const t=adminTranslations[lang]||adminTranslations.en;document.documentElement.lang=lang;localStorage.setItem("adminLang",lang);document.querySelectorAll("nav button[data-view]").forEach((b,i)=>b.textContent=t.nav[i]||b.textContent);const v=document.querySelector(".view:not(.hidden)")?.id?.replace("View","")||"dashboard";$("#viewTitle").textContent=t.title[v]||t.title.dashboard;$("#logout").textContent=t.sign;const labels=[...document.querySelectorAll(".stats div span")];[t.total,t.pending,t.contacted,t.closed].forEach((x,i)=>{if(labels[i])labels[i].textContent=x});const recent=document.querySelector("#dashboardView h2");if(recent)recent.textContent=t.recent;const viewAll=document.querySelector('#dashboardView button[data-view="quotes"]');if(viewAll)viewAll.textContent=t.viewAll;const ph=document.querySelector("#projectsView h2");if(ph)ph.textContent=t.briefs;const rq=document.querySelector("#refreshProjects");if(rq)rq.textContent=t.refresh;const qt=document.querySelector("#quotesView h2");if(qt)qt.textContent=lang==="es"?"Solicitudes de cotización":"Quote Requests";const rt=document.querySelector("#refreshQuotes");if(rt)rt.textContent=t.refresh;const th=document.querySelectorAll("#projectsView th");[t.date,t.client,t.project,t.type,t.status,""].forEach((x,i)=>{if(th[i])th[i].textContent=x});const langBtn=$("#languageToggle");if(langBtn)langBtn.textContent=lang==="es"?"🇺🇸 EN / 🇪🇸 ES":"🇺🇸 EN / 🇪🇸 ES";}
 const languageToggle=document.querySelector("#languageToggle");languageToggle?.addEventListener("click",()=>setAdminLanguage((localStorage.getItem("adminLang")||"en")==="en"?"es":"en"));
 setAdminLanguage(localStorage.getItem("adminLang")||"en");
+
+// Premium project workspace overrides
+function adminLang(){return localStorage.getItem("adminLang")||"en";}
+function projectLabel(key){const es=adminLang()==="es";const m={
+contact:es?"Contacto":"Contact",project:es?"Proyecto":"Project",summary:es?"Resumen":"Summary",technical:es?"Análisis técnico":"Technical analysis",
+location:es?"Ubicación":"Location",answers:es?"Información proporcionada":"Customer information",files:es?"Archivos":"Files",materials:es?"Materiales preliminares":"Preliminary materials",
+status:es?"Estado":"Status",save:es?"Guardar estado":"Save status",concept:es?"BOCETO TÉCNICO CONCEPTUAL":"CONCEPTUAL TECHNICAL SKETCH",
+ai:es?"Visualización IA":"AI visualization",generate:es?"Generar boceto IA":"Generate AI sketch",dimensions:es?"Dimensiones":"Dimensions",
+confidence:es?"Confianza":"Confidence",notAvailable:es?"No disponible":"Not available",openMap:es?"Abrir ubicación":"Open map",
+newProject:es?"Solicitud de proyecto":"Project request",prelim:es?"PRELIMINAR":"PRELIMINARY",engine:es?"Motor técnico":"Technical engine",
+details:es?"Detalles":"Details",client:es?"Cliente":"Client",category:es?"Categoría":"Category",viewFiles:es?"Ver archivos":"View files",
+aiNote:es?"La visualización generada por IA es conceptual. Las medidas y la ingeniería deben verificarse en sitio.":"AI visualization is conceptual. Dimensions and engineering must be verified on site."
+};return m[key]||key;}
+function parseMeters(text){const m=String(text||"").match(/(\\d+(?:[.,]\\d+)?)\\s*(?:m|metros|meter|meters|ft|pies)/i);return m?parseFloat(m[1].replace(",",".")):5;}
+function conceptSvg(p){
+ const a=p.project_data||{}; const raw=Object.values(a).join(" "); const dim=parseMeters(a.dimensions||p.technical_summary||""); const material=(raw.match(/madera|wood/i)||[])[0]?"wood":((raw.match(/acero|steel|metal/i)||[])[0]?"steel":"generic");
+ const w=Math.max(180,Math.min(520,dim*55)), h=105, x=250-w/2, y=125;
+ const fill=material==="wood"?"#9b6a3b":material==="steel"?"#6c7b88":"#6f9fbd";
+ const label=material==="wood"?(adminLang()==="es"?"MADERA":"WOOD"):material==="steel"?(adminLang()==="es"?"ACERO":"STEEL"):(adminLang()==="es"?"PROYECTO":"PROJECT");
+ return '<svg viewBox="0 0 700 360" role="img" aria-label="'+projectLabel("concept")+'">'+
+ '<defs><linearGradient id="floorG" x1="0" x2="1"><stop offset="0" stop-color="#c8d7e2"/><stop offset="1" stop-color="#eef5f9"/></linearGradient><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#078bea"/></marker></defs>'+
+ '<ellipse cx="350" cy="285" rx="245" ry="32" fill="#b8c9d5" opacity=".35"/>'+
+ '<polygon points="140,230 330,175 560,225 370,285" fill="url(#floorG)" stroke="#7e98aa" stroke-width="2"/>'+
+ '<polygon points="'+x+','+y+' '+(x+w)+','+y+' '+(x+w)+','+(y+h)+' '+x+','+(y+h)+'" fill="'+fill+'" opacity=".9" stroke="#24465f" stroke-width="3"/>'+
+ '<polygon points="'+x+','+y+' '+(x+45)+','+(y-35)+' '+(x+w+45)+','+(y-35)+' '+(x+w)+','+y+'" fill="'+fill+'" opacity=".72" stroke="#24465f" stroke-width="3"/>'+
+ '<line x1="'+x+'" y1="'+(y+h+25)+'" x2="'+(x+w)+'" y2="'+(y+h+25)+'" stroke="#078bea" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>'+
+ '<text x="350" y="'+(y+h+48)+'" text-anchor="middle" font-size="14" font-weight="900" fill="#075d9d">'+dim+' m</text>'+
+ '<line x1="'+(x-30)+'" y1="'+y+'" x2="'+(x-30)+'" y2="'+(y+h)+'" stroke="#078bea" stroke-width="2" marker-start="url(#arr)" marker-end="url(#arr)"/>'+
+ '<text x="'+(x-45)+'" y="'+(y+h/2)+'" transform="rotate(-90 '+(x-45)+' '+(y+h/2)+')" text-anchor="middle" font-size="12" font-weight="900" fill="#075d9d">2.40 m</text>'+
+ '<rect x="265" y="40" width="170" height="30" rx="15" fill="#06233e"/><text x="350" y="60" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" letter-spacing="1">'+label+'</text>'+
+ '<text x="350" y="325" text-anchor="middle" font-size="10" fill="#647b8d">'+projectLabel("aiNote").slice(0,88)+'</text></svg>';
+}
+function renderProjectWorkspace(p, fileLinks, materials){
+ const a=p.project_data||{}; const es=adminLang()==="es";
+ const answerRows=Object.entries(a).filter(([k,v])=>v!==null&&v!==""&&typeof v!=="object").map(([k,v])=>'<div class="answerRow"><b>'+esc(k.replaceAll("_"," "))+'</b><br>'+esc(v)+'</div>').join("");
+ const matRows=materials.map(x=>'<div class="materialItem"><b>'+esc(x.item||x.name||"—")+'</b><span>'+esc(x.quantity||"")+" "+esc(x.unit||"")+'</span></div>').join("")||'<p>'+projectLabel("notAvailable")+'</p>';
+ const files=fileLinks.length?'<div class="fileList">'+fileLinks.join("")+'</div>':'<p>'+projectLabel("notAvailable")+'</p>';
+ const map=p.latitude&&p.longitude?'<a target="_blank" href="https://www.google.com/maps?q='+p.latitude+','+p.longitude+'">'+projectLabel("openMap")+' ↗</a>':'<p>'+projectLabel("notAvailable")+'</p>';
+ return '<div class="workspaceHero"><div class="workspaceHero"><h2>'+esc(p.customer_name||projectLabel("newProject"))+'</h2><p>'+esc(p.project_summary||p.project_type||projectLabel("newProject"))+'</p></div></div>'+
+ '<div class="workspaceBody"><div class="infoCards">'+
+ '<div class="infoChip"><small>'+projectLabel("client")+'</small><strong>'+esc(p.customer_name||"—")+'</strong></div>'+
+ '<div class="infoChip"><small>'+projectLabel("category")+'</small><strong>'+esc(p.service_category||"—")+'</strong></div>'+
+ '<div class="infoChip"><small>'+projectLabel("dimensions")+'</small><strong>'+esc(a.dimensions||"—")+'</strong></div>'+
+ '<div class="infoChip"><small>'+projectLabel("status")+'</small><strong>'+esc(p.status||"new")+'</strong></div></div>'+
+ '<div class="projectWorkspace"><div class="workspaceCard"><div class="workspaceHero"><h2>'+projectLabel("concept")+'</h2><p>'+projectLabel("aiNote")+'</p></div><div class="workspaceBody"><div class="visualStage"><span class="visualBadge">'+projectLabel("prelim")+'</span>'+conceptSvg(p)+'</div><button class="aiAction" onclick="generateProjectAI(''+p.id+'')">'+projectLabel("generate")+' ✦</button></div></div>'+
+ '<div class="workspaceSide"><div class="sideCard"><h3>'+projectLabel("contact")+'</h3><p><b>'+esc(p.phone||"—")+'</b><br>'+esc(p.email||"—")+'</p></div>'+
+ '<div class="sideCard"><h3>'+projectLabel("summary")+'</h3><p>'+esc(p.project_summary||"—")+'</p><h3 style="margin-top:15px">'+projectLabel("technical")+'</h3><p>'+esc(p.technical_summary||"—")+'</p></div>'+
+ '<div class="sideCard"><h3>'+projectLabel("materials")+'</h3><div class="materialList">'+matRows+'</div></div>'+
+ '<div class="sideCard"><h3>'+projectLabel("answers")+'</h3><div class="projectAnswers">'+(answerRows||'<p>'+projectLabel("notAvailable")+'</p>')+'</div></div>'+
+ '<div class="sideCard"><h3>'+projectLabel("location")+'</h3>'+map+'</div>'+
+ '<div class="sideCard"><h3>'+projectLabel("files")+'</h3>'+files+'</div>'+
+ '<div class="sideCard"><div class="statusLine"><select id="projectStatus"><option value="new">new</option><option value="reviewing">reviewing</option><option value="contacted">contacted</option><option value="quoted">quoted</option><option value="closed">closed</option><option value="cancelled">cancelled</option></select><button class="primary" onclick="saveProject(\''+p.id+'\')">'+projectLabel("save")+'</button></div></div></div></div></div>';
+}
+window.viewProject=async id=>{
+ const p=projects.find(x=>x.id===id); if(!p)return;
+ const files=Array.isArray(p.customer_files)?p.customer_files:[], fileLinks=[];
+ for(const f of files){const s=await db.storage.from("project-uploads").createSignedUrl(f.path,3600);if(!s.error)fileLinks.push('<a target="_blank" href="'+s.data.signedUrl+'">'+esc(f.name||f.path)+' ↗</a>');}
+ const materials=Array.isArray(p.materials)?p.materials:[];
+ $("#modalBody").innerHTML=renderProjectWorkspace(p,fileLinks,materials);
+ $("#projectStatus").value=p.status||"new"; $("#modal").classList.remove("hidden");
+};
+window.generateProjectAI=async id=>{
+ const p=projects.find(x=>x.id===id);if(!p)return;
+ const btn=document.querySelector(".aiAction");if(!btn)return;
+ btn.disabled=true;btn.textContent=adminLang()==="es"?"Generando visual IA…":"Generating AI visualization…";
+ try{
+  const {data:{session}}=await db.auth.getSession();
+  const res=await fetch("https://jwswzoylhgfyovjwtnyy.supabase.co/functions/v1/project-analyzer",{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+(session?.access_token||"")},body:JSON.stringify({action:"visualize",project_id:id,language:adminLang(),category:p.service_category,answers:p.project_data||{},project_summary:p.project_summary,technical_summary:p.technical_summary})});
+  const data=await res.json();if(!res.ok)throw new Error(data.error||"AI unavailable");
+  if(data.image_url){const stage=document.querySelector(".visualStage");stage.innerHTML='<img src="'+data.image_url+'" alt="AI project visualization" style="width:100%;height:100%;min-height:320px;object-fit:contain;border-radius:14px"><span class="visualBadge">'+projectLabel("ai")+'</span>';}
+ }catch(e){alert(adminLang()==="es"?"El boceto IA aún necesita configurar el servicio de imágenes. La vista técnica automática ya está disponible.":"The AI sketch still needs the image service configured. The automatic technical view is already available.");}
+ btn.disabled=false;btn.textContent=projectLabel("generate")+" ✦";
+};
+function setAdminLanguage(lang){
+ const t=adminTranslations[lang]||adminTranslations.en;document.documentElement.lang=lang;localStorage.setItem("adminLang",lang);
+ const navLabels=lang==="es"?["Panel","Cotizaciones","Proyectos","Servicios","Contenido","Galería","Configuración"]:["Dashboard","Quote Requests","Project Briefs","Services","Website Content","Gallery","Settings"];
+ document.querySelectorAll("nav button[data-view]").forEach((b,i)=>{const icon=b.querySelector(".navIcon");b.innerHTML=(icon?'<span class="navIcon">'+icon.textContent+'</span>':"")+ '<span>'+navLabels[i]+'</span>';});
+ const v=document.querySelector(".view:not(.hidden)")?.id?.replace("View","")||"dashboard";$("#viewTitle").textContent=t.title[v]||t.title.dashboard;$("#logout").textContent=t.sign;
+ const labels=[...document.querySelectorAll(".stats div span")];[t.total,t.pending,t.contacted,t.closed].forEach((x,i)=>{if(labels[i])labels[i].textContent=x});
+ const recent=document.querySelector("#dashboardView h2");if(recent)recent.textContent=t.recent;
+ const viewAll=document.querySelector('#dashboardView button[data-view="quotes"]');if(viewAll)viewAll.textContent=t.viewAll;
+ const ph=document.querySelector("#projectsView h2");if(ph)ph.textContent=t.briefs;const rq=document.querySelector("#refreshProjects");if(rq)rq.textContent=t.refresh;
+ const qt=document.querySelector("#quotesView h2");if(qt)qt.textContent=lang==="es"?"Solicitudes de cotización":"Quote Requests";const rt=document.querySelector("#refreshQuotes");if(rt)rt.textContent=t.refresh;
+ const th=document.querySelectorAll("#projectsView th");[t.date,t.client,t.project,t.type,t.status,""].forEach((x,i)=>{if(th[i])th[i].textContent=x});
+ const langBtn=$("#languageToggle");if(langBtn)langBtn.textContent="🇺🇸 EN / 🇪🇸 ES";
+ if(!$("#modal").classList.contains("hidden")){const pId=document.querySelector("#projectStatus")?.dataset?.projectId; if(pId)window.viewProject(pId);}
+}
