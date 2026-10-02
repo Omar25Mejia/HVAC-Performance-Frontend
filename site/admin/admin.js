@@ -101,7 +101,7 @@ function renderProjectWorkspace(p, fileLinks, materials){
  '<div class="infoChip"><small>'+projectLabel("category")+'</small><strong>'+esc(p.service_category||"—")+'</strong></div>'+
  '<div class="infoChip"><small>'+projectLabel("dimensions")+'</small><strong>'+esc(a.dimensions||"—")+'</strong></div>'+
  '<div class="infoChip"><small>'+projectLabel("status")+'</small><strong>'+esc(p.status||"new")+'</strong></div></div>'+
- '<div class="projectWorkspace"><div class="workspaceCard"><div class="workspaceHero"><h2>'+projectLabel("concept")+'</h2><p>'+projectLabel("aiNote")+'</p></div><div class="workspaceBody"><div class="visualStage"><span class="visualBadge">'+projectLabel("prelim")+'</span>'+conceptSvg(p)+'</div><button class="aiAction" onclick="generateProjectAI(''+p.id+'')">'+projectLabel("generate")+' ✦</button></div></div>'+
+ '<div class="projectWorkspace"><div class="workspaceCard"><div class="workspaceHero"><h2>'+projectLabel("concept")+'</h2><p>'+projectLabel("aiNote")+'</p></div><div class="workspaceBody"><div class="visualStage"><span class="visualBadge">'+projectLabel("prelim")+'</span>'+conceptSvg(p)+'</div><button class="aiAction" onclick="generateProjectAI(\'+p.id+\')">'+projectLabel("generate")+' ✦</button></div></div>'+
  '<div class="workspaceSide"><div class="sideCard"><h3>'+projectLabel("contact")+'</h3><p><b>'+esc(p.phone||"—")+'</b><br>'+esc(p.email||"—")+'</p></div>'+
  '<div class="sideCard"><h3>'+projectLabel("summary")+'</h3><p>'+esc(p.project_summary||"—")+'</p><h3 style="margin-top:15px">'+projectLabel("technical")+'</h3><p>'+esc(p.technical_summary||"—")+'</p></div>'+
  '<div class="sideCard"><h3>'+projectLabel("materials")+'</h3><div class="materialList">'+matRows+'</div></div>'+
