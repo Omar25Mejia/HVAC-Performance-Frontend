@@ -114,7 +114,7 @@ window.generateProjectAI=async id=>{
 function setAdminLanguage(lang){
  const t=adminTranslations[lang]||adminTranslations.en;document.documentElement.lang=lang;localStorage.setItem("adminLang",lang);
  const navLabels=lang==="es"?["Panel","Cotizaciones","Proyectos","Servicios","Contenido","Galería","Configuración"]:["Dashboard","Quote Requests","Project Briefs","Services","Website Content","Gallery","Settings"];
- document.querySelectorAll("nav button[data-view]").forEach((b,i)=>{const icon=b.querySelector(".navIcon");b.innerHTML=(icon?'<span class="navIcon">'+icon.textContent+'</span>':"")+ '<span>'+navLabels[i]+'</span>';});
+ document.querySelectorAll("nav button[data-view]").forEach((b,i)=>{const icon=b.querySelector(".navIcon");b.innerHTML=(icon?icon.outerHTML:"")+ '<span>'+navLabels[i]+'</span>';});
  const v=document.querySelector(".view:not(.hidden)")?.id?.replace("View","")||"dashboard";$("#viewTitle").textContent=t.title[v]||t.title.dashboard;$("#logout").textContent=t.sign;
  const labels=[...document.querySelectorAll(".stats div span")];[t.total,t.pending,t.contacted,t.closed].forEach((x,i)=>{if(labels[i])labels[i].textContent=x});
  const recent=document.querySelector("#dashboardView h2");if(recent)recent.textContent=t.recent;
@@ -175,3 +175,5 @@ window.showTechnicalView=id=>{
  const stage=document.querySelector(".aiCanvas");if(!stage)return;
  stage.innerHTML='<span class="canvasTag">'+(adminLang()==='es'?'VISTA TÉCNICA':'TECHNICAL VIEW')+'</span><span class="canvasMeta">'+esc((p.project_data||{}).dimensions||'—')+'</span>'+conceptSvg(p);
 };
+
+const languageToggle=document.querySelector("#languageToggle");languageToggle?.addEventListener("click",()=>setAdminLanguage((localStorage.getItem("adminLang")||"en")==="en"?"es":"en"));setAdminLanguage(localStorage.getItem("adminLang")||"en");
